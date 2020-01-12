@@ -1,0 +1,1314 @@
+"""An enumeration."""
+enum AccountBalanceCurrency {
+  """ADB Unit of Account"""
+  XUA
+
+  """Afghani"""
+  AFN
+
+  """Algerian Dinar"""
+  DZD
+
+  """Argentine Peso"""
+  ARS
+
+  """Armenian Dram"""
+  AMD
+
+  """Aruban Guilder"""
+  AWG
+
+  """Australian Dollar"""
+  AUD
+
+  """Azerbaijanian Manat"""
+  AZN
+
+  """Bahamian Dollar"""
+  BSD
+
+  """Bahraini Dinar"""
+  BHD
+
+  """Baht"""
+  THB
+
+  """Balboa"""
+  PAB
+
+  """Barbados Dollar"""
+  BBD
+
+  """Belarussian Ruble"""
+  BYN
+
+  """Belarussian Ruble"""
+  BYR
+
+  """Belize Dollar"""
+  BZD
+
+  """Bermudian Dollar (customarily known as Bermuda Dollar)"""
+  BMD
+
+  """Bhutanese ngultrum"""
+  BTN
+
+  """Bolivar Fuerte"""
+  VEF
+
+  """Boliviano"""
+  BOB
+
+  """Bond Markets Units European Composite Unit (EURCO)"""
+  XBA
+
+  """Brazilian Real"""
+  BRL
+
+  """Brunei Dollar"""
+  BND
+
+  """Bulgarian Lev"""
+  BGN
+
+  """Burundi Franc"""
+  BIF
+
+  """CFA Franc BCEAO"""
+  XOF
+
+  """CFA franc BEAC"""
+  XAF
+
+  """CFP Franc"""
+  XPF
+
+  """Canadian Dollar"""
+  CAD
+
+  """Cape Verde Escudo"""
+  CVE
+
+  """Cayman Islands Dollar"""
+  KYD
+
+  """Chilean peso"""
+  CLP
+
+  """Codes specifically reserved for testing purposes"""
+  XTS
+
+  """Colombian peso"""
+  COP
+
+  """Comoro Franc"""
+  KMF
+
+  """Congolese franc"""
+  CDF
+
+  """Convertible Marks"""
+  BAM
+
+  """Cordoba Oro"""
+  NIO
+
+  """Costa Rican Colon"""
+  CRC
+
+  """Croatian Kuna"""
+  HRK
+
+  """Cuban Peso"""
+  CUP
+
+  """Cuban convertible peso"""
+  CUC
+
+  """Czech Koruna"""
+  CZK
+
+  """Dalasi"""
+  GMD
+
+  """Danish Krone"""
+  DKK
+
+  """Denar"""
+  MKD
+
+  """Djibouti Franc"""
+  DJF
+
+  """Dobra"""
+  STD
+
+  """Dominican Peso"""
+  DOP
+
+  """Dong"""
+  VND
+
+  """East Caribbean Dollar"""
+  XCD
+
+  """Egyptian Pound"""
+  EGP
+
+  """El Salvador Colon"""
+  SVC
+
+  """Ethiopian Birr"""
+  ETB
+
+  """Euro"""
+  EUR
+
+  """European Monetary Unit (E.M.U.-6)"""
+  XBB
+
+  """European Unit of Account 17(E.U.A.-17)"""
+  XBD
+
+  """European Unit of Account 9(E.U.A.-9)"""
+  XBC
+
+  """Falkland Islands Pound"""
+  FKP
+
+  """Fiji Dollar"""
+  FJD
+
+  """Forint"""
+  HUF
+
+  """Ghana Cedi"""
+  GHS
+
+  """Gibraltar Pound"""
+  GIP
+
+  """Gold"""
+  XAU
+
+  """Gold-Franc"""
+  XFO
+
+  """Guarani"""
+  PYG
+
+  """Guinea Franc"""
+  GNF
+
+  """Guyana Dollar"""
+  GYD
+
+  """Haitian gourde"""
+  HTG
+
+  """Hong Kong Dollar"""
+  HKD
+
+  """Hryvnia"""
+  UAH
+
+  """Iceland Krona"""
+  ISK
+
+  """Indian Rupee"""
+  INR
+
+  """Iranian Rial"""
+  IRR
+
+  """Iraqi Dinar"""
+  IQD
+
+  """Isle of Man Pound"""
+  IMP
+
+  """Jamaican Dollar"""
+  JMD
+
+  """Jordanian Dinar"""
+  JOD
+
+  """Kenyan Shilling"""
+  KES
+
+  """Kina"""
+  PGK
+
+  """Kip"""
+  LAK
+
+  """Kuwaiti Dinar"""
+  KWD
+
+  """Kwanza"""
+  AOA
+
+  """Kyat"""
+  MMK
+
+  """Lari"""
+  GEL
+
+  """Latvian Lats"""
+  LVL
+
+  """Lebanese Pound"""
+  LBP
+
+  """Lek"""
+  ALL
+
+  """Lempira"""
+  HNL
+
+  """Leone"""
+  SLL
+
+  """Lesotho loti"""
+  LSL
+
+  """Liberian Dollar"""
+  LRD
+
+  """Libyan Dinar"""
+  LYD
+
+  """Lilangeni"""
+  SZL
+
+  """Lithuanian Litas"""
+  LTL
+
+  """Malagasy Ariary"""
+  MGA
+
+  """Malawian Kwacha"""
+  MWK
+
+  """Malaysian Ringgit"""
+  MYR
+
+  """Manat"""
+  TMM
+
+  """Mauritius Rupee"""
+  MUR
+
+  """Metical"""
+  MZN
+
+  """Mexican Unidad de Inversion (UDI)"""
+  MXV
+
+  """Mexican peso"""
+  MXN
+
+  """Moldovan Leu"""
+  MDL
+
+  """Moroccan Dirham"""
+  MAD
+
+  """Mvdol"""
+  BOV
+
+  """Naira"""
+  NGN
+
+  """Nakfa"""
+  ERN
+
+  """Namibian Dollar"""
+  NAD
+
+  """Nepalese Rupee"""
+  NPR
+
+  """Netherlands Antillian Guilder"""
+  ANG
+
+  """New Israeli Sheqel"""
+  ILS
+
+  """New Leu"""
+  RON
+
+  """New Taiwan Dollar"""
+  TWD
+
+  """New Zealand Dollar"""
+  NZD
+
+  """North Korean Won"""
+  KPW
+
+  """Norwegian Krone"""
+  NOK
+
+  """Nuevo Sol"""
+  PEN
+
+  """Ouguiya"""
+  MRO
+
+  """Paanga"""
+  TOP
+
+  """Pakistan Rupee"""
+  PKR
+
+  """Palladium"""
+  XPD
+
+  """Pataca"""
+  MOP
+
+  """Philippine Peso"""
+  PHP
+
+  """Platinum"""
+  XPT
+
+  """Pound Sterling"""
+  GBP
+
+  """Pula"""
+  BWP
+
+  """Qatari Rial"""
+  QAR
+
+  """Quetzal"""
+  GTQ
+
+  """Rand"""
+  ZAR
+
+  """Rial Omani"""
+  OMR
+
+  """Riel"""
+  KHR
+
+  """Rufiyaa"""
+  MVR
+
+  """Rupiah"""
+  IDR
+
+  """Russian Ruble"""
+  RUB
+
+  """Rwanda Franc"""
+  RWF
+
+  """SDR"""
+  XDR
+
+  """Saint Helena Pound"""
+  SHP
+
+  """Saudi Riyal"""
+  SAR
+
+  """Serbian Dinar"""
+  RSD
+
+  """Seychelles Rupee"""
+  SCR
+
+  """Silver"""
+  XAG
+
+  """Singapore Dollar"""
+  SGD
+
+  """Solomon Islands Dollar"""
+  SBD
+
+  """Som"""
+  KGS
+
+  """Somali Shilling"""
+  SOS
+
+  """Somoni"""
+  TJS
+
+  """South Sudanese Pound"""
+  SSP
+
+  """Sri Lanka Rupee"""
+  LKR
+
+  """Sucre"""
+  XSU
+
+  """Sudanese Pound"""
+  SDG
+
+  """Surinam Dollar"""
+  SRD
+
+  """Swedish Krona"""
+  SEK
+
+  """Swiss Franc"""
+  CHF
+
+  """Syrian Pound"""
+  SYP
+
+  """Taka"""
+  BDT
+
+  """Tala"""
+  WST
+
+  """Tanzanian Shilling"""
+  TZS
+
+  """Tenge"""
+  KZT
+
+  """The codes assigned for transactions where no currency is involved"""
+  XXX
+
+  """Trinidad and Tobago Dollar"""
+  TTD
+
+  """Tugrik"""
+  MNT
+
+  """Tunisian Dinar"""
+  TND
+
+  """Turkish Lira"""
+  TRY
+
+  """Turkmenistan New Manat"""
+  TMT
+
+  """Tuvalu dollar"""
+  TVD
+
+  """UAE Dirham"""
+  AED
+
+  """UIC-Franc"""
+  XFU
+
+  """US Dollar"""
+  USD
+
+  """US Dollar (Next day)"""
+  USN
+
+  """Uganda Shilling"""
+  UGX
+
+  """Unidad de Fomento"""
+  CLF
+
+  """Unidad de Valor Real"""
+  COU
+
+  """Uruguay Peso en Unidades Indexadas (URUIURUI)"""
+  UYI
+
+  """Uruguayan peso"""
+  UYU
+
+  """Uzbekistan Sum"""
+  UZS
+
+  """Vatu"""
+  VUV
+
+  """WIR Euro"""
+  CHE
+
+  """WIR Franc"""
+  CHW
+
+  """Won"""
+  KRW
+
+  """Yemeni Rial"""
+  YER
+
+  """Yen"""
+  JPY
+
+  """Yuan Renminbi"""
+  CNY
+
+  """Zambian Kwacha"""
+  ZMK
+
+  """Zambian Kwacha"""
+  ZMW
+
+  """Zimbabwe Dollar A/06"""
+  ZWD
+
+  """Zimbabwe dollar A/08"""
+  ZWN
+
+  """Zimbabwe dollar A/09"""
+  ZWL
+
+  """Zloty"""
+  PLN
+}
+
+type AccountNode implements Node {
+  accountType: String!
+  name: String!
+  balanceCurrency: AccountBalanceCurrency!
+  balance: Float!
+  transactionsFrom(before: String, after: String, first: Int, last: Int, category: ID, isCompleted: Boolean): TranasctionNodeConnection!
+  transactionsTo(before: String, after: String, first: Int, last: Int, category: ID, isCompleted: Boolean): TranasctionNodeConnection!
+
+  """The ID of the object."""
+  id: ID!
+}
+
+type AccountNodeConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [AccountNodeEdge]!
+}
+
+"""A Relay edge containing a `AccountNode` and its cursor."""
+type AccountNodeEdge {
+  """The item at the end of the edge"""
+  node: AccountNode
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+"""
+The `DateTime` scalar type represents a DateTime
+value as specified by
+[iso8601](https://en.wikipedia.org/wiki/ISO_8601).
+"""
+scalar DateTime
+
+"""
+The `GenericScalar` scalar type represents a generic
+GraphQL scalar value that could be:
+String, Boolean, Int, Float, List or Object.
+"""
+scalar GenericScalar
+
+type Mutation {
+  """Obtain JSON Web Token mutation"""
+  tokenAuth(input: ObtainJSONWebTokenInput!): ObtainJSONWebTokenPayload
+  verifyToken(input: VerifyInput!): VerifyPayload
+  refreshToken(input: RefreshInput!): RefreshPayload
+  revokeToken(input: RevokeInput!): RevokePayload
+}
+
+"""An object with an ID"""
+interface Node {
+  """The ID of the object."""
+  id: ID!
+}
+
+input ObtainJSONWebTokenInput {
+  clientMutationId: String
+  email: String!
+  password: String!
+}
+
+"""Obtain JSON Web Token mutation"""
+type ObtainJSONWebTokenPayload {
+  token: String
+  clientMutationId: String
+}
+
+"""
+The Relay compliant `PageInfo` type, containing data necessary to paginate this connection.
+"""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+type Query {
+  user: UserNode
+
+  """The ID of the object"""
+  transaction(id: ID!): TranasctionNode
+  transactions(before: String, after: String, first: Int, last: Int, category: ID, isCompleted: Boolean): TranasctionNodeConnection
+
+  """The ID of the object"""
+  account(id: ID!): AccountNode
+  accounts(before: String, after: String, first: Int, last: Int, accountType: String): AccountNodeConnection
+}
+
+input RefreshInput {
+  token: String!
+  clientMutationId: String
+}
+
+type RefreshPayload {
+  token: String
+  payload: GenericScalar
+  clientMutationId: String
+}
+
+input RevokeInput {
+  refreshToken: String!
+  clientMutationId: String
+}
+
+type RevokePayload {
+  revoked: Int
+  clientMutationId: String
+}
+
+type TranasctionNode implements Node {
+  date: DateTime!
+  amountCurrency: TransactionAmountCurrency!
+  amount: Float!
+  accountFrom: AccountNode!
+  accountTo: AccountNode!
+  description: String!
+  category: TransactionCategoryNode!
+  isCompleted: Boolean!
+
+  """The ID of the object."""
+  id: ID!
+}
+
+type TranasctionNodeConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [TranasctionNodeEdge]!
+}
+
+"""A Relay edge containing a `TranasctionNode` and its cursor."""
+type TranasctionNodeEdge {
+  """The item at the end of the edge"""
+  node: TranasctionNode
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+"""An enumeration."""
+enum TransactionAmountCurrency {
+  """ADB Unit of Account"""
+  XUA
+
+  """Afghani"""
+  AFN
+
+  """Algerian Dinar"""
+  DZD
+
+  """Argentine Peso"""
+  ARS
+
+  """Armenian Dram"""
+  AMD
+
+  """Aruban Guilder"""
+  AWG
+
+  """Australian Dollar"""
+  AUD
+
+  """Azerbaijanian Manat"""
+  AZN
+
+  """Bahamian Dollar"""
+  BSD
+
+  """Bahraini Dinar"""
+  BHD
+
+  """Baht"""
+  THB
+
+  """Balboa"""
+  PAB
+
+  """Barbados Dollar"""
+  BBD
+
+  """Belarussian Ruble"""
+  BYN
+
+  """Belarussian Ruble"""
+  BYR
+
+  """Belize Dollar"""
+  BZD
+
+  """Bermudian Dollar (customarily known as Bermuda Dollar)"""
+  BMD
+
+  """Bhutanese ngultrum"""
+  BTN
+
+  """Bolivar Fuerte"""
+  VEF
+
+  """Boliviano"""
+  BOB
+
+  """Bond Markets Units European Composite Unit (EURCO)"""
+  XBA
+
+  """Brazilian Real"""
+  BRL
+
+  """Brunei Dollar"""
+  BND
+
+  """Bulgarian Lev"""
+  BGN
+
+  """Burundi Franc"""
+  BIF
+
+  """CFA Franc BCEAO"""
+  XOF
+
+  """CFA franc BEAC"""
+  XAF
+
+  """CFP Franc"""
+  XPF
+
+  """Canadian Dollar"""
+  CAD
+
+  """Cape Verde Escudo"""
+  CVE
+
+  """Cayman Islands Dollar"""
+  KYD
+
+  """Chilean peso"""
+  CLP
+
+  """Codes specifically reserved for testing purposes"""
+  XTS
+
+  """Colombian peso"""
+  COP
+
+  """Comoro Franc"""
+  KMF
+
+  """Congolese franc"""
+  CDF
+
+  """Convertible Marks"""
+  BAM
+
+  """Cordoba Oro"""
+  NIO
+
+  """Costa Rican Colon"""
+  CRC
+
+  """Croatian Kuna"""
+  HRK
+
+  """Cuban Peso"""
+  CUP
+
+  """Cuban convertible peso"""
+  CUC
+
+  """Czech Koruna"""
+  CZK
+
+  """Dalasi"""
+  GMD
+
+  """Danish Krone"""
+  DKK
+
+  """Denar"""
+  MKD
+
+  """Djibouti Franc"""
+  DJF
+
+  """Dobra"""
+  STD
+
+  """Dominican Peso"""
+  DOP
+
+  """Dong"""
+  VND
+
+  """East Caribbean Dollar"""
+  XCD
+
+  """Egyptian Pound"""
+  EGP
+
+  """El Salvador Colon"""
+  SVC
+
+  """Ethiopian Birr"""
+  ETB
+
+  """Euro"""
+  EUR
+
+  """European Monetary Unit (E.M.U.-6)"""
+  XBB
+
+  """European Unit of Account 17(E.U.A.-17)"""
+  XBD
+
+  """European Unit of Account 9(E.U.A.-9)"""
+  XBC
+
+  """Falkland Islands Pound"""
+  FKP
+
+  """Fiji Dollar"""
+  FJD
+
+  """Forint"""
+  HUF
+
+  """Ghana Cedi"""
+  GHS
+
+  """Gibraltar Pound"""
+  GIP
+
+  """Gold"""
+  XAU
+
+  """Gold-Franc"""
+  XFO
+
+  """Guarani"""
+  PYG
+
+  """Guinea Franc"""
+  GNF
+
+  """Guyana Dollar"""
+  GYD
+
+  """Haitian gourde"""
+  HTG
+
+  """Hong Kong Dollar"""
+  HKD
+
+  """Hryvnia"""
+  UAH
+
+  """Iceland Krona"""
+  ISK
+
+  """Indian Rupee"""
+  INR
+
+  """Iranian Rial"""
+  IRR
+
+  """Iraqi Dinar"""
+  IQD
+
+  """Isle of Man Pound"""
+  IMP
+
+  """Jamaican Dollar"""
+  JMD
+
+  """Jordanian Dinar"""
+  JOD
+
+  """Kenyan Shilling"""
+  KES
+
+  """Kina"""
+  PGK
+
+  """Kip"""
+  LAK
+
+  """Kuwaiti Dinar"""
+  KWD
+
+  """Kwanza"""
+  AOA
+
+  """Kyat"""
+  MMK
+
+  """Lari"""
+  GEL
+
+  """Latvian Lats"""
+  LVL
+
+  """Lebanese Pound"""
+  LBP
+
+  """Lek"""
+  ALL
+
+  """Lempira"""
+  HNL
+
+  """Leone"""
+  SLL
+
+  """Lesotho loti"""
+  LSL
+
+  """Liberian Dollar"""
+  LRD
+
+  """Libyan Dinar"""
+  LYD
+
+  """Lilangeni"""
+  SZL
+
+  """Lithuanian Litas"""
+  LTL
+
+  """Malagasy Ariary"""
+  MGA
+
+  """Malawian Kwacha"""
+  MWK
+
+  """Malaysian Ringgit"""
+  MYR
+
+  """Manat"""
+  TMM
+
+  """Mauritius Rupee"""
+  MUR
+
+  """Metical"""
+  MZN
+
+  """Mexican Unidad de Inversion (UDI)"""
+  MXV
+
+  """Mexican peso"""
+  MXN
+
+  """Moldovan Leu"""
+  MDL
+
+  """Moroccan Dirham"""
+  MAD
+
+  """Mvdol"""
+  BOV
+
+  """Naira"""
+  NGN
+
+  """Nakfa"""
+  ERN
+
+  """Namibian Dollar"""
+  NAD
+
+  """Nepalese Rupee"""
+  NPR
+
+  """Netherlands Antillian Guilder"""
+  ANG
+
+  """New Israeli Sheqel"""
+  ILS
+
+  """New Leu"""
+  RON
+
+  """New Taiwan Dollar"""
+  TWD
+
+  """New Zealand Dollar"""
+  NZD
+
+  """North Korean Won"""
+  KPW
+
+  """Norwegian Krone"""
+  NOK
+
+  """Nuevo Sol"""
+  PEN
+
+  """Ouguiya"""
+  MRO
+
+  """Paanga"""
+  TOP
+
+  """Pakistan Rupee"""
+  PKR
+
+  """Palladium"""
+  XPD
+
+  """Pataca"""
+  MOP
+
+  """Philippine Peso"""
+  PHP
+
+  """Platinum"""
+  XPT
+
+  """Pound Sterling"""
+  GBP
+
+  """Pula"""
+  BWP
+
+  """Qatari Rial"""
+  QAR
+
+  """Quetzal"""
+  GTQ
+
+  """Rand"""
+  ZAR
+
+  """Rial Omani"""
+  OMR
+
+  """Riel"""
+  KHR
+
+  """Rufiyaa"""
+  MVR
+
+  """Rupiah"""
+  IDR
+
+  """Russian Ruble"""
+  RUB
+
+  """Rwanda Franc"""
+  RWF
+
+  """SDR"""
+  XDR
+
+  """Saint Helena Pound"""
+  SHP
+
+  """Saudi Riyal"""
+  SAR
+
+  """Serbian Dinar"""
+  RSD
+
+  """Seychelles Rupee"""
+  SCR
+
+  """Silver"""
+  XAG
+
+  """Singapore Dollar"""
+  SGD
+
+  """Solomon Islands Dollar"""
+  SBD
+
+  """Som"""
+  KGS
+
+  """Somali Shilling"""
+  SOS
+
+  """Somoni"""
+  TJS
+
+  """South Sudanese Pound"""
+  SSP
+
+  """Sri Lanka Rupee"""
+  LKR
+
+  """Sucre"""
+  XSU
+
+  """Sudanese Pound"""
+  SDG
+
+  """Surinam Dollar"""
+  SRD
+
+  """Swedish Krona"""
+  SEK
+
+  """Swiss Franc"""
+  CHF
+
+  """Syrian Pound"""
+  SYP
+
+  """Taka"""
+  BDT
+
+  """Tala"""
+  WST
+
+  """Tanzanian Shilling"""
+  TZS
+
+  """Tenge"""
+  KZT
+
+  """The codes assigned for transactions where no currency is involved"""
+  XXX
+
+  """Trinidad and Tobago Dollar"""
+  TTD
+
+  """Tugrik"""
+  MNT
+
+  """Tunisian Dinar"""
+  TND
+
+  """Turkish Lira"""
+  TRY
+
+  """Turkmenistan New Manat"""
+  TMT
+
+  """Tuvalu dollar"""
+  TVD
+
+  """UAE Dirham"""
+  AED
+
+  """UIC-Franc"""
+  XFU
+
+  """US Dollar"""
+  USD
+
+  """US Dollar (Next day)"""
+  USN
+
+  """Uganda Shilling"""
+  UGX
+
+  """Unidad de Fomento"""
+  CLF
+
+  """Unidad de Valor Real"""
+  COU
+
+  """Uruguay Peso en Unidades Indexadas (URUIURUI)"""
+  UYI
+
+  """Uruguayan peso"""
+  UYU
+
+  """Uzbekistan Sum"""
+  UZS
+
+  """Vatu"""
+  VUV
+
+  """WIR Euro"""
+  CHE
+
+  """WIR Franc"""
+  CHW
+
+  """Won"""
+  KRW
+
+  """Yemeni Rial"""
+  YER
+
+  """Yen"""
+  JPY
+
+  """Yuan Renminbi"""
+  CNY
+
+  """Zambian Kwacha"""
+  ZMK
+
+  """Zambian Kwacha"""
+  ZMW
+
+  """Zimbabwe Dollar A/06"""
+  ZWD
+
+  """Zimbabwe dollar A/08"""
+  ZWN
+
+  """Zimbabwe dollar A/09"""
+  ZWL
+
+  """Zloty"""
+  PLN
+}
+
+type TransactionCategoryNode {
+  name: String!
+}
+
+type UserNode implements Node {
+  firstName: String!
+  lastName: String!
+  email: String!
+  accounts(before: String, after: String, first: Int, last: Int, accountType: String): AccountNodeConnection!
+
+  """The ID of the object."""
+  id: ID!
+}
+
+input VerifyInput {
+  token: String!
+  clientMutationId: String
+}
+
+type VerifyPayload {
+  payload: GenericScalar
+  clientMutationId: String
+}
+

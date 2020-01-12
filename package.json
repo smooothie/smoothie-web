@@ -9,6 +9,7 @@
   "dependencies": {
     "@material-ui/core": "^4.8.3",
     "@material-ui/icons": "^4.5.1",
+    "@testing-library/dom": "^6.11.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -19,15 +20,24 @@
     "express": "^4.17.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-relay": "^8.0.0",
     "react-scripts": "3.3.0",
     "typescript": "~3.7.2"
+  },
+  "devDependencies": {
+    "babel-plugin-relay": "^8.0.0",
+    "get-graphql-schema": "^2.1.2",
+    "graphql": "^14.5.8",
+    "relay-compiler": "^8.0.0"
   },
   "scripts": {
     "dev": "react-scripts start",
     "start": "NODE_ENV=production node server",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "get-schema": "node scripts/getSchema.js",
+    "relay": "relay-compiler --src ./src --schema ./schema.graphql"
   },
   "eslintConfig": {
     "extends": "react-app"
