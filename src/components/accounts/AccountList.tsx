@@ -10,7 +10,8 @@ type Props = {
 };
 
 const PureAccountList: React.FC<Props> = ({ accounts }) => (
-  <div>
+  <div style={{ textAlign: 'center', margin: '40px' }}>
+    Account List
     {accounts.edges.map(edge =>
       edge === null || edge.node === null ? null : (
         <Account key={edge.node.__id} account={edge.node} />

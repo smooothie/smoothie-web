@@ -5,6 +5,7 @@ import {
   Store,
   FetchFunction,
 } from 'relay-runtime';
+import Cookies from 'js-cookie';
 
 const fetchQuery: FetchFunction = (operation, variables) => {
   return fetch(`${process.env.REACT_APP_API_URL}/graphql`, {
@@ -12,6 +13,7 @@ const fetchQuery: FetchFunction = (operation, variables) => {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
+      Authorization: `JWT ${Cookies.get('JWT') || ''}`,
     },
     body: JSON.stringify({
       query: operation.text,

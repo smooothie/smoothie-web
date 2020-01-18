@@ -1,15 +1,16 @@
 import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import Cookies from 'js-cookie';
 
-import SignIn from 'components/SignIn';
-import AccountListPage from 'components/accounts/AccountListPage';
+import { SignIn } from 'components/authentication';
+import { AccountListPage } from 'components/accounts';
 
 const App: React.FC = () => {
+  const token = Cookies.get('JWT');
   return (
     <>
       <CssBaseline />
-      <SignIn />
-      <AccountListPage />
+      {!token ? <SignIn /> : <AccountListPage />}
     </>
   );
 };
