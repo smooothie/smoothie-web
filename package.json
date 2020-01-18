@@ -17,18 +17,25 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "@types/react-relay": "^7.0.3",
+    "@types/relay-runtime": "^8.0.1",
+    "babel-plugin-relay": "^8.0.0",
     "express": "^4.17.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-relay": "^8.0.0",
     "react-scripts": "3.3.0",
+    "relay-runtime": "^8.0.0",
     "typescript": "~3.7.2"
   },
   "devDependencies": {
-    "babel-plugin-relay": "^8.0.0",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-plugin-prettier": "^3.1.2",
     "get-graphql-schema": "^2.1.2",
     "graphql": "^14.5.8",
-    "relay-compiler": "^8.0.0"
+    "prettier": "1.19.1",
+    "relay-compiler": "^8.0.0",
+    "relay-compiler-language-typescript": "^10.1.4"
   },
   "scripts": {
     "dev": "react-scripts start",
@@ -37,10 +44,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "get-schema": "node scripts/getSchema.js",
-    "relay": "relay-compiler --src ./src --schema ./schema.graphql"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "relay": "relay-compiler --src ./src --schema ./schema.graphql --language typescript"
   },
   "browserslist": {
     "production": [
