@@ -6,11 +6,13 @@ import Header from './Header';
 
 const Layout: React.FC = ({ children }) => {
   return (
-    <Container component="main" maxWidth="xs">
+    <>
       <CssBaseline />
       <Header />
-      {children}
-    </Container>
+      <Container component="main" maxWidth="xs">
+        {children}
+      </Container>
+    </>
   );
 };
 
