@@ -69,15 +69,15 @@ const SignIn: React.FC = () => {
       </Typography>
       <Formik
         initialValues={{ email: '', password: '' }}
-        onSubmit={(values, { setSubmitting, setFieldError }) => {
-          tokenMutation(values, login, () => {
-            setFieldError('password', 'Please enter valid credentials');
+        onSubmit={(values, { setSubmitting, setStatus }) => {
+          tokenMutation(values, login, errorMessage => {
+            setStatus(errorMessage);
             setSubmitting(false);
           });
         }}
         validationSchema={SignInSchema}
       >
-        {({ isSubmitting }) => (
+        {({ isSubmitting, status }) => (
           <Form className={classes.form}>
             <Field
               variant="outlined"
@@ -103,6 +103,7 @@ const SignIn: React.FC = () => {
               autoComplete="current-password"
               component={TextField}
             />
+            {status !== null && <Typography color="error">{status}</Typography>}
             <Button
               type="submit"
               fullWidth

@@ -19,18 +19,23 @@ const mutation = graphql`
 export default (
   input: ObtainJSONWebTokenInput,
   callback: (token: string) => void,
-  errorHandler: () => void
+  errorHandler: (errorMessage: string) => void
 ) =>
   commitMutation<TokenMutation>(environment, {
     mutation,
     variables: { input },
-    onCompleted: response => {
+    onCompleted: (response, errors) => {
+      if (errors) {
+        errorHandler(errors[0].message);
+        return;
+      }
+
       const token = response.tokenAuth?.token;
       if (token) {
         callback(token);
       } else {
-        errorHandler();
+        errorHandler('Something went wrong');
       }
     },
-    onError: errorHandler,
+    onError: () => errorHandler('Something went wrong'),
   });
