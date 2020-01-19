@@ -1,6 +1,5 @@
 import { commitMutation } from 'relay-runtime';
 import { graphql } from 'babel-plugin-relay/macro';
-import Cookies from 'js-cookie';
 
 import environment from 'environment';
 
@@ -17,15 +16,21 @@ const mutation = graphql`
   }
 `;
 
-export default (input: ObtainJSONWebTokenInput) =>
+export default (
+  input: ObtainJSONWebTokenInput,
+  callback: (token: string) => void,
+  errorHandler: () => void
+) =>
   commitMutation<TokenMutation>(environment, {
     mutation,
     variables: { input },
     onCompleted: response => {
       const token = response.tokenAuth?.token;
       if (token) {
-        Cookies.set('JWT', token);
-        window.location.reload();
+        callback(token);
+      } else {
+        errorHandler();
       }
     },
+    onError: errorHandler,
   });

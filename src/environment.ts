@@ -7,13 +7,15 @@ import {
 } from 'relay-runtime';
 import Cookies from 'js-cookie';
 
+import { AUTH_TOKEN_COOKIE } from 'helpers/constants';
+
 const fetchQuery: FetchFunction = (operation, variables) => {
   return fetch(`${process.env.REACT_APP_API_URL}/graphql`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      Authorization: `JWT ${Cookies.get('JWT') || ''}`,
+      Authorization: `JWT ${Cookies.get(AUTH_TOKEN_COOKIE) || ''}`,
     },
     body: JSON.stringify({
       query: operation.text,

@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import { TextField } from 'formik-material-ui';
+import Cookies from 'js-cookie';
+import { useHistory } from 'react-router-dom';
+import * as Yup from 'yup';
 
+import { AUTH_TOKEN_COOKIE } from 'helpers/constants';
+import urls from 'helpers/urls';
 import tokenMutation from './mutations/TokenMutation';
 
 const useStyles = makeStyles(theme => ({
@@ -36,84 +39,84 @@ type Values = {
   password: string;
 };
 
+const SignInSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('Invalid email')
+    .required('Required'),
+  password: Yup.string().required('Required'),
+});
+
 const SignIn: React.FC = () => {
   const classes = useStyles();
 
+  const history = useHistory();
+
+  const login = useCallback(
+    token => {
+      Cookies.set(AUTH_TOKEN_COOKIE, token);
+      history.replace(urls.home);
+    },
+    [history]
+  );
+
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        <Formik
-          initialValues={{ email: '', password: '' }}
-          onSubmit={(values, { setSubmitting }) => {
-            tokenMutation(values);
-            console.log(values);
+    <div className={classes.paper}>
+      <Avatar className={classes.avatar}>
+        <LockOutlinedIcon />
+      </Avatar>
+      <Typography component="h1" variant="h5">
+        Sign in
+      </Typography>
+      <Formik
+        initialValues={{ email: '', password: '' }}
+        onSubmit={(values, { setSubmitting, setFieldError }) => {
+          tokenMutation(values, login, () => {
+            setFieldError('password', 'Please enter valid credentials');
             setSubmitting(false);
-          }}
-          validate={values => {
-            const errors: FormikErrors<Values> = {};
-            if (!values.email) {
-              errors.email = 'Required';
-            } else if (
-              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-            ) {
-              errors.email = 'Invalid email address';
-            }
-            if (!values.password) {
-              errors.password = 'Required';
-            }
-            return errors;
-          }}
-        >
-          {({ isSubmitting }) => (
-            <Form className={classes.form}>
-              <Field
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                autoFocus
-                component={TextField}
-              />
-              <ErrorMessage name="email" component="div" />
-              <Field
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                component={TextField}
-              />
-              <ErrorMessage name="password" component="div" />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-                disabled={isSubmitting}
-              >
-                Sign In
-              </Button>
-            </Form>
-          )}
-        </Formik>
-      </div>
-    </Container>
+          });
+        }}
+        validationSchema={SignInSchema}
+      >
+        {({ isSubmitting }) => (
+          <Form className={classes.form}>
+            <Field
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus
+              component={TextField}
+            />
+            <Field
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              component={TextField}
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              disabled={isSubmitting}
+            >
+              Sign In
+            </Button>
+          </Form>
+        )}
+      </Formik>
+    </div>
   );
 };
 

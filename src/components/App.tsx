@@ -1,17 +1,25 @@
 import React from 'react';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Cookies from 'js-cookie';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
+import { Layout } from 'components/layout';
 import { SignIn } from 'components/authentication';
 import { AccountListPage } from 'components/accounts';
+import urls from 'helpers/urls';
 
 const App: React.FC = () => {
-  const token = Cookies.get('JWT');
   return (
-    <>
-      <CssBaseline />
-      {!token ? <SignIn /> : <AccountListPage />}
-    </>
+    <BrowserRouter>
+      <Layout>
+        <Switch>
+          <Route path={urls.login}>
+            <SignIn />
+          </Route>
+          <Route path={urls.home}>
+            <AccountListPage />
+          </Route>
+        </Switch>
+      </Layout>
+    </BrowserRouter>
   );
 };
 
