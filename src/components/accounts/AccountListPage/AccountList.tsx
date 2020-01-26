@@ -22,8 +22,8 @@ const PureAccountList: React.FC<Props> = ({ accounts }) => {
         <Grid container spacing={3}>
           {accounts.edges.map(edge =>
             edge === null || edge.node === null ? null : (
-              <Grid item xs={12}>
-                <AccountListItem key={edge.node.__id} account={edge.node} />
+              <Grid item xs={12} key={edge.node.__id}>
+                <AccountListItem account={edge.node} />
               </Grid>
             )
           )}

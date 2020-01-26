@@ -3,6 +3,7 @@ import { QueryRenderer } from 'react-relay';
 import { graphql } from 'babel-plugin-relay/macro';
 
 import environment from 'environment';
+import Loader from 'components/atoms/Loader';
 
 import AccountList from './AccountList';
 import { AccountListPageQuery } from './__generated__/AccountListPageQuery.graphql';
@@ -27,7 +28,7 @@ const AccountListPage: React.FC = () => (
           <AccountList accounts={props.accounts} />
         );
       }
-      return <div>Loading</div>;
+      return <Loader />;
     }}
     variables={{}}
   />
