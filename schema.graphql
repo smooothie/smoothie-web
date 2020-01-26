@@ -597,12 +597,36 @@ type AccountNodeEdge {
   cursor: String!
 }
 
+input CreateUpdateAccountMutationInput {
+  accountType: String!
+  name: String!
+  balance: Float
+  counterpartyName: String
+  id: ID
+  clientMutationId: String
+}
+
+type CreateUpdateAccountMutationPayload {
+  account: AccountNode
+  clientMutationId: String
+}
+
 """
 The `DateTime` scalar type represents a DateTime
 value as specified by
 [iso8601](https://en.wikipedia.org/wiki/ISO_8601).
 """
 scalar DateTime
+
+input DeleteAccountMutationInput {
+  id: ID!
+  clientMutationId: String
+}
+
+type DeleteAccountMutationPayload {
+  ok: Boolean
+  clientMutationId: String
+}
 
 """
 The `GenericScalar` scalar type represents a generic
@@ -612,6 +636,9 @@ String, Boolean, Int, Float, List or Object.
 scalar GenericScalar
 
 type Mutation {
+  account(input: CreateUpdateAccountMutationInput!): CreateUpdateAccountMutationPayload
+  deleteAccount(input: DeleteAccountMutationInput!): DeleteAccountMutationPayload
+
   """Obtain JSON Web Token mutation"""
   tokenAuth(input: ObtainJSONWebTokenInput!): ObtainJSONWebTokenPayload
   verifyToken(input: VerifyInput!): VerifyPayload

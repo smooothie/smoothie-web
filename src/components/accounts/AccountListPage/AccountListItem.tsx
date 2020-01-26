@@ -4,7 +4,7 @@ import { graphql } from 'babel-plugin-relay/macro';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 import Link from 'components/atoms/Link';
 import urls from 'helpers/urls';
@@ -38,7 +38,7 @@ const PureAccountListItem: React.FC<Props> = ({
             </Typography>
           </Box>
           <Typography>
-            {balance.toLocaleString('en-US', {
+            {balance.toLocaleString('uk-UA', {
               style: 'currency',
               currency: balanceCurrency,
             })}

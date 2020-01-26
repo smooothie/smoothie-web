@@ -5,6 +5,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { makeStyles } from '@material-ui/core/styles';
 import Cookies from 'js-cookie';
 import { useHistory, Link as RouterLink } from 'react-router-dom';
@@ -55,12 +56,12 @@ const Header: React.FC = () => {
           Smooothie
         </Link>
         {isLoggedIn ? (
-          <Button color="inherit" onClick={logout}>
-            Logout
-          </Button>
+          <IconButton color="inherit" aria-label="logout" onClick={logout}>
+            <ExitToAppIcon />
+          </IconButton>
         ) : (
           <Button color="inherit" component={RouterLink} to={urls.login}>
-            Login
+            Увійти
           </Button>
         )}
       </Toolbar>

@@ -41,9 +41,9 @@ type Values = {
 
 const SignInSchema = Yup.object().shape({
   email: Yup.string()
-    .email('Invalid email')
-    .required('Required'),
-  password: Yup.string().required('Required'),
+    .email('Невірний email')
+    .required("Обов'язкове поле"),
+  password: Yup.string().required("Обов'язкове поле"),
 });
 
 const SignIn: React.FC = () => {
@@ -65,7 +65,7 @@ const SignIn: React.FC = () => {
         <LockOutlinedIcon />
       </Avatar>
       <Typography component="h1" variant="h5">
-        Sign in
+        Вхід
       </Typography>
       <Formik
         initialValues={{ email: '', password: '' }}
@@ -85,7 +85,7 @@ const SignIn: React.FC = () => {
               required
               fullWidth
               id="email"
-              label="Email Address"
+              label="Email"
               name="email"
               autoComplete="email"
               autoFocus
@@ -97,7 +97,7 @@ const SignIn: React.FC = () => {
               required
               fullWidth
               name="password"
-              label="Password"
+              label="Пароль"
               type="password"
               id="password"
               autoComplete="current-password"
@@ -112,7 +112,7 @@ const SignIn: React.FC = () => {
               className={classes.submit}
               disabled={isSubmitting}
             >
-              Sign In
+              Увійти
             </Button>
           </Form>
         )}

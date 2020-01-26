@@ -33,9 +33,9 @@ const PureAccount: React.FC<Props> = ({
       </Box>
       <Box marginTop={3}>
         <Box display="flex" justifyContent="space-between">
-          <Typography>Balance:</Typography>
+          <Typography>Баланс</Typography>
           <Typography>
-            {balance.toLocaleString('en-US', {
+            {balance.toLocaleString('uk-UA', {
               style: 'currency',
               currency: balanceCurrency,
             })}
