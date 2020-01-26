@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-/* @relayHash b6e96f0f2936577c850458b6c13b22f7 */
+/* @relayHash 9c2194f0adcaaf5b37e534931d1a730d */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -24,21 +24,21 @@ query AccountListPageQuery {
   }
 }
 
-fragment AccountList_accounts on AccountNodeConnection {
-  edges {
-    node {
-      ...Account_account
-      id
-    }
-  }
-}
-
-fragment Account_account on AccountNode {
+fragment AccountListItem_account on AccountNode {
   id
   name
   accountType
   balance
   balanceCurrency
+}
+
+fragment AccountList_accounts on AccountNodeConnection {
+  edges {
+    node {
+      ...AccountListItem_account
+      id
+    }
+  }
 }
 */
 
@@ -156,7 +156,7 @@ const node: ConcreteRequest = (function () {
             "operationKind": "query",
             "name": "AccountListPageQuery",
             "id": null,
-            "text": "query AccountListPageQuery {\n  accounts(accountType: \"visible\") {\n    ...AccountList_accounts\n  }\n}\n\nfragment AccountList_accounts on AccountNodeConnection {\n  edges {\n    node {\n      ...Account_account\n      id\n    }\n  }\n}\n\nfragment Account_account on AccountNode {\n  id\n  name\n  accountType\n  balance\n  balanceCurrency\n}\n",
+            "text": "query AccountListPageQuery {\n  accounts(accountType: \"visible\") {\n    ...AccountList_accounts\n  }\n}\n\nfragment AccountListItem_account on AccountNode {\n  id\n  name\n  accountType\n  balance\n  balanceCurrency\n}\n\nfragment AccountList_accounts on AccountNodeConnection {\n  edges {\n    node {\n      ...AccountListItem_account\n      id\n    }\n  }\n}\n",
             "metadata": {}
         }
     } as any;

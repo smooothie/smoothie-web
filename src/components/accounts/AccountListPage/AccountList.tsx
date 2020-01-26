@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 
-import Account from './Account';
+import AccountListItem from './AccountListItem';
 import { AccountList_accounts } from './__generated__/AccountList_accounts.graphql';
 
 type Props = {
@@ -23,7 +23,7 @@ const PureAccountList: React.FC<Props> = ({ accounts }) => {
           {accounts.edges.map(edge =>
             edge === null || edge.node === null ? null : (
               <Grid item xs={12}>
-                <Account key={edge.node.__id} account={edge.node} />
+                <AccountListItem key={edge.node.__id} account={edge.node} />
               </Grid>
             )
           )}
@@ -38,7 +38,7 @@ const AccountList = createFragmentContainer(PureAccountList, {
     fragment AccountList_accounts on AccountNodeConnection {
       edges {
         node {
-          ...Account_account
+          ...AccountListItem_account
         }
       }
     }

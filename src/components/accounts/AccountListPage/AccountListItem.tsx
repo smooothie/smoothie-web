@@ -11,7 +11,7 @@ import PersonRoundedIcon from '@material-ui/icons/PersonRounded';
 import { SvgIconProps } from '@material-ui/core/SvgIcon';
 import { makeStyles } from '@material-ui/core';
 
-import { Account_account } from './__generated__/Account_account.graphql';
+import { AccountListItem_account } from './__generated__/AccountListItem_account.graphql';
 
 const useStyles = makeStyles(theme => ({
   icon: {
@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 type Props = {
-  account: Account_account;
+  account: AccountListItem_account;
 };
 
 const iconsMap: Record<string, React.ComponentType<SvgIconProps>> = {
@@ -30,7 +30,7 @@ const iconsMap: Record<string, React.ComponentType<SvgIconProps>> = {
   default: MonetizationOnRoundedIcon,
 };
 
-const PureAccount: React.FC<Props> = ({
+const PureAccountListItem: React.FC<Props> = ({
   account: { name, accountType, balance, balanceCurrency },
 }) => {
   const classes = useStyles();
@@ -55,9 +55,9 @@ const PureAccount: React.FC<Props> = ({
   );
 };
 
-const Account = createFragmentContainer(PureAccount, {
+const AccountListItem = createFragmentContainer(PureAccountListItem, {
   account: graphql`
-    fragment Account_account on AccountNode {
+    fragment AccountListItem_account on AccountNode {
       id
       name
       accountType
@@ -67,6 +67,6 @@ const Account = createFragmentContainer(PureAccount, {
   `,
 });
 
-Account.displayName = 'Account';
+AccountListItem.displayName = 'Account';
 
-export default Account;
+export default AccountListItem;

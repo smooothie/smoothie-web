@@ -6,7 +6,7 @@ import { FragmentRefs } from "relay-runtime";
 export type AccountList_accounts = {
     readonly edges: ReadonlyArray<{
         readonly node: {
-            readonly " $fragmentRefs": FragmentRefs<"Account_account">;
+            readonly " $fragmentRefs": FragmentRefs<"AccountListItem_account">;
             readonly __id: string;
         } | null;
     } | null>;
@@ -47,7 +47,7 @@ const node: ReaderFragment = ({
                     "selections": [
                         {
                             "kind": "FragmentSpread",
-                            "name": "Account_account",
+                            "name": "AccountListItem_account",
                             "args": null
                         }
                     ]
@@ -56,5 +56,5 @@ const node: ReaderFragment = ({
         }
     ]
 } as any);
-(node as any).hash = 'd55c14cc1f60a034903089e6cc53a985';
+(node as any).hash = 'f276c67e75998b892291172086716121';
 export default node;
