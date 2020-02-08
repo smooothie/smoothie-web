@@ -1,11 +1,12 @@
 /* tslint:disable */
 /* eslint-disable */
-/* @relayHash 27626c3d31d3984a0d1853dbff6bec00 */
+/* @relayHash a6c3e1e23e51e5352219d2e1e0b2c37e */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type AccountPageQueryVariables = {
     accountID: string;
+    transactionAccountId?: string | null;
 };
 export type AccountPageQueryResponse = {
     readonly account: {
@@ -26,12 +27,13 @@ export type AccountPageQuery = {
 /*
 query AccountPageQuery(
   $accountID: ID!
+  $transactionAccountId: String
 ) {
   account(id: $accountID) {
     ...Account_account
     id
   }
-  transactions(accountFrom: $accountID) {
+  transactions(accountFrom: $transactionAccountId) {
     ...TransactionsList_transactions
   }
 }
@@ -81,6 +83,12 @@ const node: ConcreteRequest = (function () {
             "name": "accountID",
             "type": "ID!",
             "defaultValue": null
+        } as any),
+        ({
+            "kind": "LocalArgument",
+            "name": "transactionAccountId",
+            "type": "String",
+            "defaultValue": null
         } as any)
     ], v1 = [
         ({
@@ -92,7 +100,7 @@ const node: ConcreteRequest = (function () {
         ({
             "kind": "Variable",
             "name": "accountFrom",
-            "variableName": "accountID"
+            "variableName": "transactionAccountId"
         } as any)
     ], v3 = ({
         "kind": "ScalarField",
@@ -299,10 +307,10 @@ const node: ConcreteRequest = (function () {
             "operationKind": "query",
             "name": "AccountPageQuery",
             "id": null,
-            "text": "query AccountPageQuery(\n  $accountID: ID!\n) {\n  account(id: $accountID) {\n    ...Account_account\n    id\n  }\n  transactions(accountFrom: $accountID) {\n    ...TransactionsList_transactions\n  }\n}\n\nfragment Account_account on AccountNode {\n  id\n  name\n  accountType\n  balance\n  balanceCurrency\n}\n\nfragment TransactionsListItem_transaction on TransactionNode {\n  id\n  date\n  amount\n  amountCurrency\n  description\n  accountFrom {\n    id\n    name\n  }\n  accountTo {\n    id\n    name\n  }\n  category {\n    name\n  }\n  isCompleted\n}\n\nfragment TransactionsList_transactions on TransactionNodeConnection {\n  edges {\n    node {\n      ...TransactionsListItem_transaction\n      id\n    }\n  }\n}\n",
+            "text": "query AccountPageQuery(\n  $accountID: ID!\n  $transactionAccountId: String\n) {\n  account(id: $accountID) {\n    ...Account_account\n    id\n  }\n  transactions(accountFrom: $transactionAccountId) {\n    ...TransactionsList_transactions\n  }\n}\n\nfragment Account_account on AccountNode {\n  id\n  name\n  accountType\n  balance\n  balanceCurrency\n}\n\nfragment TransactionsListItem_transaction on TransactionNode {\n  id\n  date\n  amount\n  amountCurrency\n  description\n  accountFrom {\n    id\n    name\n  }\n  accountTo {\n    id\n    name\n  }\n  category {\n    name\n  }\n  isCompleted\n}\n\nfragment TransactionsList_transactions on TransactionNodeConnection {\n  edges {\n    node {\n      ...TransactionsListItem_transaction\n      id\n    }\n  }\n}\n",
             "metadata": {}
         }
     } as any;
 })();
-(node as any).hash = '54f1cd63d74b98ecdb2cba6d7277eff2';
+(node as any).hash = 'dc26c8aca9e3801eb1687beafa335f04';
 export default node;

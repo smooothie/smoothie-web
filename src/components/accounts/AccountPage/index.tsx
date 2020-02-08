@@ -11,11 +11,11 @@ import Account from './Account';
 import { AccountPageQuery } from './__generated__/AccountPageQuery.graphql';
 
 const Query = graphql`
-  query AccountPageQuery($accountID: ID!) {
+  query AccountPageQuery($accountID: ID!, $transactionAccountId: String) {
     account(id: $accountID) {
       ...Account_account
     }
-    transactions(accountFrom: $accountID) {
+    transactions(accountFrom: $transactionAccountId) {
       ...TransactionsList_transactions
     }
   }
@@ -45,7 +45,11 @@ const AccountPage: React.FC = () => {
         }
         return <Loader />;
       }}
-      variables={{ accountID: accountId || '' }}
+      variables={{
+        // ugly workaround because of difference between ID and String types
+        accountID: accountId || '',
+        transactionAccountId: accountId || '',
+      }}
     />
   );
 };

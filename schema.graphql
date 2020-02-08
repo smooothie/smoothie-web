@@ -686,7 +686,7 @@ type Query {
 
   """The ID of the object"""
   transaction(id: ID!): TransactionNode
-  transactions(before: String, after: String, first: Int, last: Int, accountFrom: ID, category: ID, isCompleted: Boolean): TransactionNodeConnection
+  transactions(before: String, after: String, first: Int, last: Int, accountFrom: String, category: ID, isCompleted: Boolean): TransactionNodeConnection
 
   """The ID of the object"""
   account(id: ID!): AccountNode
