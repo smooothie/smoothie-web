@@ -61,6 +61,6 @@ const AccountListItem = createFragmentContainer(PureAccountListItem, {
   `,
 });
 
-AccountListItem.displayName = 'Account';
+AccountListItem.displayName = 'AccountListItem';
 
 export default AccountListItem;

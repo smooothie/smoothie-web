@@ -45,7 +45,7 @@ const PureAccountList: React.FC<Props> = ({ accounts }) => {
   return (
     <Box marginTop={4}>
       <Typography component="h1" variant="h5" align="center">
-        Перелік рахунків
+        Рахунки
       </Typography>
       <Box marginTop={3}>
         <Grid container spacing={3}>

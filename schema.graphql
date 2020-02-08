@@ -573,8 +573,8 @@ type AccountNode implements Node {
   name: String!
   balanceCurrency: AccountBalanceCurrency!
   balance: Float!
-  transactionsFrom(before: String, after: String, first: Int, last: Int, category: ID, isCompleted: Boolean): TranasctionNodeConnection!
-  transactionsTo(before: String, after: String, first: Int, last: Int, category: ID, isCompleted: Boolean): TranasctionNodeConnection!
+  transactionsFrom(before: String, after: String, first: Int, last: Int, category: ID, isCompleted: Boolean, accountFrom: ID): TransactionNodeConnection!
+  transactionsTo(before: String, after: String, first: Int, last: Int, category: ID, isCompleted: Boolean, accountFrom: ID): TransactionNodeConnection!
 
   """The ID of the object."""
   id: ID!
@@ -685,8 +685,8 @@ type Query {
   user: UserNode
 
   """The ID of the object"""
-  transaction(id: ID!): TranasctionNode
-  transactions(before: String, after: String, first: Int, last: Int, category: ID, isCompleted: Boolean): TranasctionNodeConnection
+  transaction(id: ID!): TransactionNode
+  transactions(before: String, after: String, first: Int, last: Int, accountFrom: ID, category: ID, isCompleted: Boolean): TransactionNodeConnection
 
   """The ID of the object"""
   account(id: ID!): AccountNode
@@ -712,37 +712,6 @@ input RevokeInput {
 type RevokePayload {
   revoked: Int
   clientMutationId: String
-}
-
-type TranasctionNode implements Node {
-  date: DateTime!
-  amountCurrency: TransactionAmountCurrency!
-  amount: Float!
-  accountFrom: AccountNode!
-  accountTo: AccountNode!
-  description: String!
-  category: TransactionCategoryNode!
-  isCompleted: Boolean!
-
-  """The ID of the object."""
-  id: ID!
-}
-
-type TranasctionNodeConnection {
-  """Pagination data for this connection."""
-  pageInfo: PageInfo!
-
-  """Contains the nodes in this connection."""
-  edges: [TranasctionNodeEdge]!
-}
-
-"""A Relay edge containing a `TranasctionNode` and its cursor."""
-type TranasctionNodeEdge {
-  """The item at the end of the edge"""
-  node: TranasctionNode
-
-  """A cursor for use in pagination"""
-  cursor: String!
 }
 
 """An enumeration."""
@@ -1317,6 +1286,37 @@ enum TransactionAmountCurrency {
 
 type TransactionCategoryNode {
   name: String!
+}
+
+type TransactionNode implements Node {
+  date: DateTime!
+  amountCurrency: TransactionAmountCurrency!
+  amount: Float!
+  accountFrom: AccountNode!
+  accountTo: AccountNode!
+  description: String!
+  category: TransactionCategoryNode!
+  isCompleted: Boolean!
+
+  """The ID of the object."""
+  id: ID!
+}
+
+type TransactionNodeConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [TransactionNodeEdge]!
+}
+
+"""A Relay edge containing a `TransactionNode` and its cursor."""
+type TransactionNodeEdge {
+  """The item at the end of the edge"""
+  node: TransactionNode
+
+  """A cursor for use in pagination"""
+  cursor: String!
 }
 
 type UserNode implements Node {
