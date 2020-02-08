@@ -5,9 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
-import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
-import EditIcon from '@material-ui/icons/Edit';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Modal from 'components/organisms/Modal';
@@ -36,11 +34,9 @@ type Props = {
 const PureAccountList: React.FC<Props> = ({ accounts }) => {
   const classes = useStyles();
   const [isAccountModalOpen, setAccountModalOpen] = useState(false);
-  const [editingAccount, setEditingAccount] = useState<string | null>(null);
   const openAccountModal = useCallback(() => setAccountModalOpen(true), []);
   const closeAccountModal = useCallback(() => {
     setAccountModalOpen(false);
-    setEditingAccount(null);
   }, []);
   // TODO: find out how to use mutation updater instead
   const forceUpdate = useCallback(() => {
@@ -64,16 +60,6 @@ const PureAccountList: React.FC<Props> = ({ accounts }) => {
                 style={{ position: 'relative' }}
               >
                 <AccountListItem account={account} />
-                <IconButton
-                  aria-label="edit"
-                  className={classes.edit}
-                  onClick={() => {
-                    setEditingAccount(account.__id);
-                    openAccountModal();
-                  }}
-                >
-                  <EditIcon />
-                </IconButton>
               </Grid>
             );
           })}
@@ -88,7 +74,7 @@ const PureAccountList: React.FC<Props> = ({ accounts }) => {
         <AddIcon />
       </Fab>
       <Modal isOpen={isAccountModalOpen} onClose={closeAccountModal}>
-        <AccountForm editingAccount={editingAccount} onSuccess={forceUpdate} />
+        <AccountForm onSuccess={forceUpdate} />
       </Modal>
     </Box>
   );

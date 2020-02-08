@@ -10,7 +10,6 @@ import Button from '@material-ui/core/Button';
 import createUpdateAccountMutation from '../mutations/CreateUpdateAccountMutation';
 
 type Props = {
-  editingAccount: string | null;
   onSuccess: () => void;
 };
 
@@ -24,13 +23,11 @@ const AccountFormSchema = Yup.object().shape({
   counterpartyName: Yup.string(),
 });
 
-const AccountForm: React.FC<Props> = ({ editingAccount, onSuccess }) => {
+const AccountForm: React.FC<Props> = ({ onSuccess }) => {
   return (
     <Box>
       <Typography component="h1" variant="h5" align="center">
-        {editingAccount === null
-          ? 'Додавання нового рахунку'
-          : 'Редагування рахунку'}
+        {'Додавання нового рахунку'}
       </Typography>
       <Box marginTop={2}>
         <Formik
