@@ -14,6 +14,7 @@ import Modal from 'components/organisms/Modal';
 
 import AccountListItem from './AccountListItem';
 import { AccountList_accounts } from './__generated__/AccountList_accounts.graphql';
+import AccountForm from '../AccountForm';
 
 const useStyles = makeStyles(theme => ({
   fab: {
@@ -40,6 +41,10 @@ const PureAccountList: React.FC<Props> = ({ accounts }) => {
   const closeAccountModal = useCallback(() => {
     setAccountModalOpen(false);
     setEditingAccount(null);
+  }, []);
+  // TODO: find out how to use mutation updater instead
+  const forceUpdate = useCallback(() => {
+    window.location.reload();
   }, []);
   return (
     <Box marginTop={4}>
@@ -83,11 +88,7 @@ const PureAccountList: React.FC<Props> = ({ accounts }) => {
         <AddIcon />
       </Fab>
       <Modal isOpen={isAccountModalOpen} onClose={closeAccountModal}>
-        <Typography component="h1" variant="h5" align="center">
-          {editingAccount === null
-            ? 'Додавання нового рахунку'
-            : 'Редагування рахунку'}
-        </Typography>
+        <AccountForm editingAccount={editingAccount} onSuccess={forceUpdate} />
       </Modal>
     </Box>
   );

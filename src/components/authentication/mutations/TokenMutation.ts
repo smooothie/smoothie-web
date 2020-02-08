@@ -34,8 +34,8 @@ export default (
       if (token) {
         callback(token);
       } else {
-        errorHandler('Something went wrong');
+        errorHandler('Щось пішло не так');
       }
     },
-    onError: () => errorHandler('Something went wrong'),
+    onError: () => errorHandler('Щось пішло не так'),
   });

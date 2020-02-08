@@ -34,11 +34,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-type Values = {
-  email: string;
-  password: string;
-};
-
 const SignInSchema = Yup.object().shape({
   email: Yup.string()
     .email('Невірний email')
