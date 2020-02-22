@@ -569,7 +569,7 @@ enum AccountBalanceCurrency {
 }
 
 type AccountNode implements Node {
-  accountType: String!
+  itemType: String!
   name: String!
   balanceCurrency: AccountBalanceCurrency!
   balance: Float!
@@ -598,7 +598,7 @@ type AccountNodeEdge {
 }
 
 input CreateUpdateAccountMutationInput {
-  accountType: String!
+  itemType: String!
   name: String!
   balance: Float
   counterpartyName: String
@@ -690,7 +690,7 @@ type Query {
 
   """The ID of the object"""
   account(id: ID!): AccountNode
-  accounts(before: String, after: String, first: Int, last: Int, accountType: String): AccountNodeConnection
+  accounts(before: String, after: String, first: Int, last: Int, itemType: String): AccountNodeConnection
 }
 
 input RefreshInput {
@@ -1323,7 +1323,7 @@ type UserNode implements Node {
   firstName: String!
   lastName: String!
   email: String!
-  accounts(before: String, after: String, first: Int, last: Int, accountType: String): AccountNodeConnection!
+  accounts(before: String, after: String, first: Int, last: Int, itemType: String): AccountNodeConnection!
 
   """The ID of the object."""
   id: ID!

@@ -12,7 +12,7 @@ import {
 // TODO: is it possible to infer from Response?
 type Account = {
   readonly id: string;
-  readonly accountType: string;
+  readonly itemType: string;
   readonly name: string;
   readonly balance: number;
   readonly balanceCurrency: AccountBalanceCurrency;
@@ -25,7 +25,7 @@ const mutation = graphql`
     account(input: $input) {
       account {
         id
-        accountType
+        itemType
         name
         balance
         balanceCurrency

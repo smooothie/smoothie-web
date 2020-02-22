@@ -19,10 +19,10 @@ type Props = {
 };
 
 const PureAccount: React.FC<Props> = ({
-  account: { accountType, name, balance, balanceCurrency },
+  account: { itemType, name, balance, balanceCurrency },
 }) => {
   const classes = useStyles();
-  const Icon = iconsMap[accountType] || iconsMap.default;
+  const Icon = iconsMap[itemType] || iconsMap.default;
   return (
     <Box marginTop={4}>
       <Box display="flex" alignItems="center" justifyContent="center">
@@ -51,7 +51,7 @@ const Account = createFragmentContainer(PureAccount, {
     fragment Account_account on AccountNode {
       id
       name
-      accountType
+      itemType
       balance
       balanceCurrency
     }

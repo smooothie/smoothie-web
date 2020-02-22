@@ -14,7 +14,7 @@ type Props = {
 };
 
 const AccountFormSchema = Yup.object().shape({
-  accountType: Yup.mixed<'cashaccount' | 'counterpartyaccount'>().oneOf(
+  itemType: Yup.mixed<'cashaccount' | 'counterpartyaccount'>().oneOf(
     ['cashaccount', 'counterpartyaccount'],
     'Недопустимий вибір'
   ),
@@ -29,7 +29,7 @@ const AccountForm: React.FC<Props> = ({ onSuccess }) => {
       <Box marginTop={2}>
         <Formik
           initialValues={{
-            accountType: 'cashaccount',
+            itemType: 'cashaccount',
             name: '',
             balance: 0,
             counterpartyName: '',
@@ -54,9 +54,9 @@ const AccountForm: React.FC<Props> = ({ onSuccess }) => {
               <Field
                 variant="outlined"
                 fullWidth
-                id="accountType"
+                id="itemType"
                 label="Вид рахунку"
-                name="accountType"
+                name="itemType"
                 component={Select}
               >
                 <MenuItem value="cashaccount">Готівка</MenuItem>
@@ -72,7 +72,7 @@ const AccountForm: React.FC<Props> = ({ onSuccess }) => {
                 name="name"
                 component={TextField}
               />
-              {values.accountType === 'counterpartyaccount' && (
+              {values.itemType === 'counterpartyaccount' && (
                 <Field
                   variant="outlined"
                   margin="normal"

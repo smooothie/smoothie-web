@@ -7,7 +7,7 @@ export type AccountBalanceCurrency = "%future added value" | "AED" | "AFN" | "AL
 export type Account_account = {
     readonly id: string;
     readonly name: string;
-    readonly accountType: string;
+    readonly itemType: string;
     readonly balance: number;
     readonly balanceCurrency: AccountBalanceCurrency;
     readonly " $refType": "Account_account";
@@ -44,7 +44,7 @@ const node: ReaderFragment = ({
         {
             "kind": "ScalarField",
             "alias": null,
-            "name": "accountType",
+            "name": "itemType",
             "args": null,
             "storageKey": null
         },
@@ -64,5 +64,5 @@ const node: ReaderFragment = ({
         }
     ]
 } as any);
-(node as any).hash = 'b8ec92af595de0c74b90493c61333254';
+(node as any).hash = 'ffd0a00ef7a631e91d0cbb9b4f7795b9';
 export default node;

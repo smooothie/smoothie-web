@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-/* @relayHash 9c2194f0adcaaf5b37e534931d1a730d */
+/* @relayHash 16f24f156db09a1fe224356050e0fa03 */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -19,7 +19,7 @@ export type AccountListPageQuery = {
 
 /*
 query AccountListPageQuery {
-  accounts(accountType: "visible") {
+  accounts(itemType: "visible") {
     ...AccountList_accounts
   }
 }
@@ -27,7 +27,7 @@ query AccountListPageQuery {
 fragment AccountListItem_account on AccountNode {
   id
   name
-  accountType
+  itemType
   balance
   balanceCurrency
 }
@@ -46,7 +46,7 @@ const node: ConcreteRequest = (function () {
     var v0 = [
         ({
             "kind": "Literal",
-            "name": "accountType",
+            "name": "itemType",
             "value": "visible"
         } as any)
     ];
@@ -63,7 +63,7 @@ const node: ConcreteRequest = (function () {
                     "kind": "LinkedField",
                     "alias": null,
                     "name": "accounts",
-                    "storageKey": "accounts(accountType:\"visible\")",
+                    "storageKey": "accounts(itemType:\"visible\")",
                     "args": (v0 /*: any*/),
                     "concreteType": "AccountNodeConnection",
                     "plural": false,
@@ -86,7 +86,7 @@ const node: ConcreteRequest = (function () {
                     "kind": "LinkedField",
                     "alias": null,
                     "name": "accounts",
-                    "storageKey": "accounts(accountType:\"visible\")",
+                    "storageKey": "accounts(itemType:\"visible\")",
                     "args": (v0 /*: any*/),
                     "concreteType": "AccountNodeConnection",
                     "plural": false,
@@ -126,7 +126,7 @@ const node: ConcreteRequest = (function () {
                                         {
                                             "kind": "ScalarField",
                                             "alias": null,
-                                            "name": "accountType",
+                                            "name": "itemType",
                                             "args": null,
                                             "storageKey": null
                                         },
@@ -156,10 +156,10 @@ const node: ConcreteRequest = (function () {
             "operationKind": "query",
             "name": "AccountListPageQuery",
             "id": null,
-            "text": "query AccountListPageQuery {\n  accounts(accountType: \"visible\") {\n    ...AccountList_accounts\n  }\n}\n\nfragment AccountListItem_account on AccountNode {\n  id\n  name\n  accountType\n  balance\n  balanceCurrency\n}\n\nfragment AccountList_accounts on AccountNodeConnection {\n  edges {\n    node {\n      ...AccountListItem_account\n      id\n    }\n  }\n}\n",
+            "text": "query AccountListPageQuery {\n  accounts(itemType: \"visible\") {\n    ...AccountList_accounts\n  }\n}\n\nfragment AccountListItem_account on AccountNode {\n  id\n  name\n  itemType\n  balance\n  balanceCurrency\n}\n\nfragment AccountList_accounts on AccountNodeConnection {\n  edges {\n    node {\n      ...AccountListItem_account\n      id\n    }\n  }\n}\n",
             "metadata": {}
         }
     } as any;
 })();
-(node as any).hash = '24abc6ec766017375ca5d5ad48bacb2e';
+(node as any).hash = '5334995e676624bfba7c92742f7cefa0';
 export default node;

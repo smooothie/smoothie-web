@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-/* @relayHash a6c3e1e23e51e5352219d2e1e0b2c37e */
+/* @relayHash 0a2acfa4f1cb910f04ef073b0c065b7a */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -41,7 +41,7 @@ query AccountPageQuery(
 fragment Account_account on AccountNode {
   id
   name
-  accountType
+  itemType
   balance
   balanceCurrency
 }
@@ -180,7 +180,7 @@ const node: ConcreteRequest = (function () {
                         {
                             "kind": "ScalarField",
                             "alias": null,
-                            "name": "accountType",
+                            "name": "itemType",
                             "args": null,
                             "storageKey": null
                         },
@@ -307,7 +307,7 @@ const node: ConcreteRequest = (function () {
             "operationKind": "query",
             "name": "AccountPageQuery",
             "id": null,
-            "text": "query AccountPageQuery(\n  $accountID: ID!\n  $transactionAccountId: String\n) {\n  account(id: $accountID) {\n    ...Account_account\n    id\n  }\n  transactions(accountFrom: $transactionAccountId) {\n    ...TransactionsList_transactions\n  }\n}\n\nfragment Account_account on AccountNode {\n  id\n  name\n  accountType\n  balance\n  balanceCurrency\n}\n\nfragment TransactionsListItem_transaction on TransactionNode {\n  id\n  date\n  amount\n  amountCurrency\n  description\n  accountFrom {\n    id\n    name\n  }\n  accountTo {\n    id\n    name\n  }\n  category {\n    name\n  }\n  isCompleted\n}\n\nfragment TransactionsList_transactions on TransactionNodeConnection {\n  edges {\n    node {\n      ...TransactionsListItem_transaction\n      id\n    }\n  }\n}\n",
+            "text": "query AccountPageQuery(\n  $accountID: ID!\n  $transactionAccountId: String\n) {\n  account(id: $accountID) {\n    ...Account_account\n    id\n  }\n  transactions(accountFrom: $transactionAccountId) {\n    ...TransactionsList_transactions\n  }\n}\n\nfragment Account_account on AccountNode {\n  id\n  name\n  itemType\n  balance\n  balanceCurrency\n}\n\nfragment TransactionsListItem_transaction on TransactionNode {\n  id\n  date\n  amount\n  amountCurrency\n  description\n  accountFrom {\n    id\n    name\n  }\n  accountTo {\n    id\n    name\n  }\n  category {\n    name\n  }\n  isCompleted\n}\n\nfragment TransactionsList_transactions on TransactionNodeConnection {\n  edges {\n    node {\n      ...TransactionsListItem_transaction\n      id\n    }\n  }\n}\n",
             "metadata": {}
         }
     } as any;

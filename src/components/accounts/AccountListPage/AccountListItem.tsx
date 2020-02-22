@@ -23,10 +23,10 @@ type Props = {
 };
 
 const PureAccountListItem: React.FC<Props> = ({
-  account: { id, name, accountType, balance, balanceCurrency },
+  account: { id, name, itemType, balance, balanceCurrency },
 }) => {
   const classes = useStyles();
-  const Icon = iconsMap[accountType] || iconsMap.default;
+  const Icon = iconsMap[itemType] || iconsMap.default;
   return (
     <Paper elevation={3}>
       <Link to={urls.account.replace(':accountId', id)}>
@@ -54,7 +54,7 @@ const AccountListItem = createFragmentContainer(PureAccountListItem, {
     fragment AccountListItem_account on AccountNode {
       id
       name
-      accountType
+      itemType
       balance
       balanceCurrency
     }

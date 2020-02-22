@@ -10,7 +10,7 @@ import { AccountListPageQuery } from './__generated__/AccountListPageQuery.graph
 
 const Query = graphql`
   query AccountListPageQuery {
-    accounts(accountType: "visible") {
+    accounts(itemType: "visible") {
       ...AccountList_accounts
     }
   }
