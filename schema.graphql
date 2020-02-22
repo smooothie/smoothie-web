@@ -597,6 +597,24 @@ type AccountNodeEdge {
   cursor: String!
 }
 
+input CreateTransactionMutationInput {
+  itemType: String!
+  amount: Float!
+  date: DateTime
+  accountFromId: ID
+  accountToId: ID
+  description: String
+  category: String!
+  isCompleted: Boolean
+  counterpartyName: String
+  clientMutationId: String
+}
+
+type CreateTransactionMutationPayload {
+  transaction: TransactionNode
+  clientMutationId: String
+}
+
 input CreateUpdateAccountMutationInput {
   itemType: String!
   name: String!
@@ -628,6 +646,16 @@ type DeleteAccountMutationPayload {
   clientMutationId: String
 }
 
+input DeleteTransactionMutationInput {
+  id: ID!
+  clientMutationId: String
+}
+
+type DeleteTransactionMutationPayload {
+  ok: Boolean
+  clientMutationId: String
+}
+
 """
 The `GenericScalar` scalar type represents a generic
 GraphQL scalar value that could be:
@@ -636,6 +664,8 @@ String, Boolean, Int, Float, List or Object.
 scalar GenericScalar
 
 type Mutation {
+  transaction(input: CreateTransactionMutationInput!): CreateTransactionMutationPayload
+  deleteTransaction(input: DeleteTransactionMutationInput!): DeleteTransactionMutationPayload
   account(input: CreateUpdateAccountMutationInput!): CreateUpdateAccountMutationPayload
   deleteAccount(input: DeleteAccountMutationInput!): DeleteAccountMutationPayload
 
