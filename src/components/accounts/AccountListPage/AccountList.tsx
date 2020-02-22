@@ -73,7 +73,11 @@ const PureAccountList: React.FC<Props> = ({ accounts }) => {
       >
         <AddIcon />
       </Fab>
-      <Modal isOpen={isAccountModalOpen} onClose={closeAccountModal}>
+      <Modal
+        title="Додавання нового рахунку"
+        isOpen={isAccountModalOpen}
+        onClose={closeAccountModal}
+      >
         <AccountForm onSuccess={forceUpdate} />
       </Modal>
     </Box>

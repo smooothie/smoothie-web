@@ -26,9 +26,6 @@ const AccountFormSchema = Yup.object().shape({
 const AccountForm: React.FC<Props> = ({ onSuccess }) => {
   return (
     <Box>
-      <Typography component="h1" variant="h5" align="center">
-        {'Додавання нового рахунку'}
-      </Typography>
       <Box marginTop={2}>
         <Formik
           initialValues={{
@@ -102,15 +99,17 @@ const AccountForm: React.FC<Props> = ({ onSuccess }) => {
               {status !== null && (
                 <Typography color="error">{status}</Typography>
               )}
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                disabled={isSubmitting}
-              >
-                Готово
-              </Button>
+              <Box paddingBottom={2} paddingTop={2}>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  disabled={isSubmitting}
+                >
+                  Готово
+                </Button>
+              </Box>
             </Form>
           )}
         </Formik>
