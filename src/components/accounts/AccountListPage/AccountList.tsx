@@ -1,43 +1,28 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { createFragmentContainer } from 'react-relay';
 import { graphql } from 'babel-plugin-relay/macro';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import { makeStyles } from '@material-ui/core/styles';
 
 import Modal from 'components/organisms/Modal';
+import AddButton from 'components/atoms/AddButton';
+import useBooleanState from 'hooks/useBooleanState';
 
 import AccountListItem from './AccountListItem';
 import { AccountList_accounts } from './__generated__/AccountList_accounts.graphql';
 import AccountForm from '../AccountForm';
-
-const useStyles = makeStyles(theme => ({
-  fab: {
-    position: 'absolute',
-    bottom: theme.spacing(2),
-    right: theme.spacing(2),
-  },
-  edit: {
-    position: 'absolute',
-    right: theme.spacing(2),
-    top: 'calc(50% - 24px)',
-  },
-}));
 
 type Props = {
   accounts: AccountList_accounts;
 };
 
 const PureAccountList: React.FC<Props> = ({ accounts }) => {
-  const classes = useStyles();
-  const [isAccountModalOpen, setAccountModalOpen] = useState(false);
-  const openAccountModal = useCallback(() => setAccountModalOpen(true), []);
-  const closeAccountModal = useCallback(() => {
-    setAccountModalOpen(false);
-  }, []);
+  const [
+    isAccountModalOpen,
+    openAccountModal,
+    closeAccountModal,
+  ] = useBooleanState();
   // TODO: find out how to use mutation updater instead
   const forceUpdate = useCallback(() => {
     window.location.reload();
@@ -65,14 +50,7 @@ const PureAccountList: React.FC<Props> = ({ accounts }) => {
           })}
         </Grid>
       </Box>
-      <Fab
-        color="primary"
-        aria-label="add"
-        className={classes.fab}
-        onClick={openAccountModal}
-      >
-        <AddIcon />
-      </Fab>
+      <AddButton onClick={openAccountModal} />
       <Modal
         title="Додавання нового рахунку"
         isOpen={isAccountModalOpen}

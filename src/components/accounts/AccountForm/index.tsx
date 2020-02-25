@@ -52,7 +52,6 @@ const AccountForm: React.FC<Props> = ({ onSuccess }) => {
           {({ isSubmitting, status, values }) => (
             <Form>
               <Field
-                variant="outlined"
                 fullWidth
                 id="itemType"
                 label="Вид рахунку"
@@ -63,7 +62,6 @@ const AccountForm: React.FC<Props> = ({ onSuccess }) => {
                 <MenuItem value="counterpartyaccount">Контрагент</MenuItem>
               </Field>
               <Field
-                variant="outlined"
                 margin="normal"
                 required
                 fullWidth
@@ -74,7 +72,6 @@ const AccountForm: React.FC<Props> = ({ onSuccess }) => {
               />
               {values.itemType === 'counterpartyaccount' && (
                 <Field
-                  variant="outlined"
                   margin="normal"
                   fullWidth
                   id="counterpartyName"
@@ -85,7 +82,6 @@ const AccountForm: React.FC<Props> = ({ onSuccess }) => {
                 />
               )}
               <Field
-                variant="outlined"
                 margin="normal"
                 placeholder="0"
                 fullWidth
