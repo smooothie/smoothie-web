@@ -7,11 +7,13 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import moment from 'moment';
 
 import createTransactionMutation from '../mutations/CreateTransactionMutation';
 
 type Props = {
   onSuccess: () => void;
+  currentAccountId: string;
 };
 
 const TransactionFormSchema = Yup.object().shape({
@@ -23,15 +25,15 @@ const TransactionFormSchema = Yup.object().shape({
     .required("Обов'язкове поле")
     .min(0.01, 'Число має бути додатним'),
   date: Yup.date().nullable(),
-  accountFromId: Yup.string().nullable(),
-  accountToId: Yup.string().nullable(),
+  accountFromId: Yup.string(),
+  accountToId: Yup.string(),
   category: Yup.string().required("Обов'язкове поле"),
   description: Yup.string(),
   isCompleted: Yup.boolean(),
   counterpartyName: Yup.string().nullable(),
 });
 
-const TransactionForm: React.FC<Props> = ({ onSuccess }) => {
+const TransactionForm: React.FC<Props> = ({ onSuccess, currentAccountId }) => {
   return (
     <Box>
       <Box marginTop={2}>
@@ -39,17 +41,29 @@ const TransactionForm: React.FC<Props> = ({ onSuccess }) => {
           initialValues={{
             itemType: 'purchase',
             amount: 0,
-            date: null,
-            accountFromId: null,
-            accountToId: null,
+            date: moment().format(),
+            accountFromId: '',
+            accountToId: '',
             category: '',
             description: '',
             isCompleted: true,
             counterpartyName: '',
           }}
           onSubmit={(values, { setSubmitting, setStatus }) => {
+            let finalValues = values;
+            if (values.itemType === 'income') {
+              finalValues = {
+                ...finalValues,
+                accountToId: currentAccountId,
+              };
+            } else {
+              finalValues = {
+                ...finalValues,
+                accountFromId: currentAccountId,
+              };
+            }
             createTransactionMutation(
-              values,
+              finalValues,
               () => {
                 setSubmitting(false);
                 onSuccess();
@@ -93,19 +107,9 @@ const TransactionForm: React.FC<Props> = ({ onSuccess }) => {
                 label="Дата"
                 name="date"
                 component={DatePicker}
+                format="DD.MM.YYYY"
               />
-              {['purchase', 'transfer'].includes(values.itemType) && (
-                <Field
-                  margin="normal"
-                  fullWidth
-                  required
-                  id="accountFromId"
-                  label="З рахунку"
-                  name="accountFromId"
-                  component={TextField}
-                />
-              )}
-              {['income', 'transfer'].includes(values.itemType) && (
+              {values.itemType === 'transfer' && (
                 <Field
                   margin="normal"
                   fullWidth

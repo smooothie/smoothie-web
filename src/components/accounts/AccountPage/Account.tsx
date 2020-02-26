@@ -24,7 +24,7 @@ type Props = {
 };
 
 const PureAccount: React.FC<Props> = ({
-  account: { itemType, name, balance, balanceCurrency },
+  account: { id, itemType, name, balance, balanceCurrency },
 }) => {
   const classes = useStyles();
   const [isModalOpen, openModal, closeModal] = useBooleanState();
@@ -58,7 +58,7 @@ const PureAccount: React.FC<Props> = ({
         isOpen={isModalOpen}
         onClose={closeModal}
       >
-        <TransactionForm onSuccess={forceUpdate} />
+        <TransactionForm onSuccess={forceUpdate} currentAccountId={id} />
       </Modal>
     </Box>
   );
