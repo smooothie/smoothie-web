@@ -6,13 +6,11 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { Formik, Form, Field } from 'formik';
 import { TextField } from 'formik-material-ui';
-import Cookies from 'js-cookie';
 import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 
-import { AUTH_TOKEN_COOKIE } from 'helpers/constants';
 import urls from 'helpers/urls';
-import tokenMutation from './mutations/TokenMutation';
+import handleSubmit from './handleSubmit';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -46,13 +44,9 @@ const SignIn: React.FC = () => {
 
   const history = useHistory();
 
-  const login = useCallback(
-    token => {
-      Cookies.set(AUTH_TOKEN_COOKIE, token);
-      history.replace(urls.home);
-    },
-    [history]
-  );
+  const goHome = useCallback(() => {
+    history.replace(urls.home);
+  }, [history]);
 
   return (
     <div className={classes.paper}>
@@ -64,11 +58,8 @@ const SignIn: React.FC = () => {
       </Typography>
       <Formik
         initialValues={{ email: '', password: '' }}
-        onSubmit={(values, { setSubmitting, setStatus }) => {
-          tokenMutation(values, login, errorMessage => {
-            setStatus(errorMessage);
-            setSubmitting(false);
-          });
+        onSubmit={(values, helpers) => {
+          handleSubmit(values, helpers, goHome);
         }}
         validationSchema={SignInSchema}
       >

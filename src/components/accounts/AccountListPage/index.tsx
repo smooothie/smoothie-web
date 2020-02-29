@@ -1,37 +1,24 @@
 import React from 'react';
-import { QueryRenderer } from 'react-relay';
-import { graphql } from 'babel-plugin-relay/macro';
 
-import environment from 'environment';
 import Loader from 'components/atoms/Loader';
-
+import useFetchApi from 'hooks/useFetchApi';
+import { Account } from '../types';
 import AccountList from './AccountList';
-import { AccountListPageQuery } from './__generated__/AccountListPageQuery.graphql';
 
-const Query = graphql`
-  query AccountListPageQuery {
-    accounts(itemType: "visible") {
-      ...AccountList_accounts
-    }
+const AccountListPage: React.FC = () => {
+  const {
+    state: { data, fetching, error },
+  } = useFetchApi<Account[]>('accounts/');
+  const accounts = data as Account[];
+  if (error) {
+    return <div>Щось пішло не так</div>;
   }
-`;
-
-const AccountListPage: React.FC = () => (
-  <QueryRenderer<AccountListPageQuery>
-    environment={environment}
-    query={Query}
-    render={({ error, props }) => {
-      if (error) {
-        return <div>{error.message}</div>;
-      } else if (props) {
-        return props.accounts === null ? null : (
-          <AccountList accounts={props.accounts} />
-        );
-      }
-      return <Loader />;
-    }}
-    variables={{}}
-  />
-);
+  return (
+    <>
+      {data !== null && <AccountList accounts={accounts} />}
+      {fetching && <Loader />}
+    </>
+  );
+};
 
 export default AccountListPage;
