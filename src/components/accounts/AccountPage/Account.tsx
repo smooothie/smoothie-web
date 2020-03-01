@@ -1,6 +1,4 @@
-import React, { useCallback } from 'react';
-import { createFragmentContainer } from 'react-relay';
-import { graphql } from 'babel-plugin-relay/macro';
+import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core';
@@ -8,9 +6,8 @@ import { makeStyles } from '@material-ui/core';
 import Modal from 'components/organisms/Modal';
 import AddButton from 'components/atoms/AddButton';
 import useBooleanState from 'hooks/useBooleanState';
-import TransactionForm from 'components/transactions/TransactionForm';
-
-import { Account_account } from './__generated__/Account_account.graphql';
+// import TransactionForm from 'components/transactions/TransactionForm';
+import { Account as AccountType } from '../types';
 import { iconsMap } from '../helpers';
 
 const useStyles = makeStyles(theme => ({
@@ -20,18 +17,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 type Props = {
-  account: Account_account;
+  account: AccountType;
 };
 
-const PureAccount: React.FC<Props> = ({
+const Account: React.FC<Props> = ({
   account: { id, itemType, name, balance, balanceCurrency },
 }) => {
   const classes = useStyles();
   const [isModalOpen, openModal, closeModal] = useBooleanState();
-  // TODO: find out how to use mutation updater instead
-  const forceUpdate = useCallback(() => {
-    window.location.reload();
-  }, []);
   const Icon = iconsMap[itemType] || iconsMap.default;
   return (
     <Box marginTop={4}>
@@ -58,24 +51,10 @@ const PureAccount: React.FC<Props> = ({
         isOpen={isModalOpen}
         onClose={closeModal}
       >
-        <TransactionForm onSuccess={forceUpdate} currentAccountId={id} />
+        {/*<TransactionForm onSuccess={forceUpdate} currentAccountId={id} />*/}
       </Modal>
     </Box>
   );
 };
-
-const Account = createFragmentContainer(PureAccount, {
-  account: graphql`
-    fragment Account_account on AccountNode {
-      id
-      name
-      itemType
-      balance
-      balanceCurrency
-    }
-  `,
-});
-
-Account.displayName = 'Account';
 
 export default Account;

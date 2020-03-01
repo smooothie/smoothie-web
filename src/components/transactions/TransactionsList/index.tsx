@@ -1,6 +1,4 @@
 import React from 'react';
-import { createFragmentContainer } from 'react-relay';
-import { graphql } from 'babel-plugin-relay/macro';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -13,7 +11,7 @@ type Props = {
   accountId?: string;
 };
 
-const PureTransactionsList: React.FC<Props> = ({ transactions, accountId }) => {
+const TransactionsList: React.FC<Props> = ({ transactions, accountId }) => {
   return (
     <Box marginTop={4}>
       <Typography component="h1" variant="h5" align="center">
@@ -43,17 +41,5 @@ const PureTransactionsList: React.FC<Props> = ({ transactions, accountId }) => {
     </Box>
   );
 };
-
-const TransactionsList = createFragmentContainer(PureTransactionsList, {
-  transactions: graphql`
-    fragment TransactionsList_transactions on TransactionNodeConnection {
-      edges {
-        node {
-          ...TransactionsListItem_transaction
-        }
-      }
-    }
-  `,
-});
 
 export default TransactionsList;

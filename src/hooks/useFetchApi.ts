@@ -18,9 +18,19 @@ const fetch = async <T>(
   }
 };
 
-const useFetchApi = <T>(url: string, params: Record<string, any> = {}) => {
+const useFetchApi = (
+  url: string,
+  isList: boolean,
+  params: Record<string, any> = {}
+) => {
   const paramsString = JSON.stringify(params);
-  const { state, fetchAttempt, fetchSuccess, fetchError } = useFetchReducer();
+  const {
+    state,
+    fetchAttempt,
+    fetchSuccess,
+    fetchError,
+    reset,
+  } = useFetchReducer(isList);
   const fetcher = useCallback(
     () => {
       fetch(url, params, fetchSuccess, fetchError);
@@ -32,7 +42,10 @@ const useFetchApi = <T>(url: string, params: Record<string, any> = {}) => {
   useEffect(() => {
     fetchAttempt();
     fetcher();
-  }, [fetchAttempt, fetcher]);
+    if (isList) {
+      return reset;
+    }
+  }, [fetchAttempt, fetcher, isList, reset]);
   return { state, fetcher };
 };
 

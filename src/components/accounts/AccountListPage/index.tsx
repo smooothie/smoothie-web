@@ -8,14 +8,14 @@ import AccountList from './AccountList';
 const AccountListPage: React.FC = () => {
   const {
     state: { data, fetching, error },
-  } = useFetchApi<Account[]>('accounts/');
+  } = useFetchApi('accounts/', true);
   const accounts = data as Account[];
   if (error) {
     return <div>Щось пішло не так</div>;
   }
   return (
     <>
-      {data !== null && <AccountList accounts={accounts} />}
+      {<AccountList accounts={accounts} />}
       {fetching && <Loader />}
     </>
   );

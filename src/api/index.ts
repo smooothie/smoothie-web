@@ -10,6 +10,7 @@ export type ApiErrors<V> = {
   [K in keyof Partial<V>]: string[];
 } & {
   nonFieldErrors?: string[];
+  detail?: string;
 };
 
 export const parseApiErrors = <V extends FormikValues>(
@@ -18,12 +19,16 @@ export const parseApiErrors = <V extends FormikValues>(
   errors: Record<string, string>;
   nonFieldError?: string;
 } => {
+  const detail = apiErrors.detail;
+  if (detail) {
+    delete apiErrors.detail;
+  }
   const errors = mapObjIndexed((fieldErrors: string[]) => fieldErrors[0])(
     apiErrors
   );
   return {
     errors: omit(errors, ['nonFieldErrors']),
-    nonFieldError: errors.nonFieldErrors,
+    nonFieldError: detail || errors.nonFieldErrors,
   };
 };
 
@@ -39,7 +44,7 @@ const api = create({
 api.addRequestTransform(request => {
   const authCookie = Cookies.get(AUTH_TOKEN_COOKIE);
   if (authCookie) {
-    request.headers['Authorization'] = `JWT ${authCookie}`;
+    request.headers['Authorization'] = `${AUTH_TOKEN_COOKIE} ${authCookie}`;
   }
 });
 

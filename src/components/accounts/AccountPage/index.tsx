@@ -1,56 +1,29 @@
 import React from 'react';
-import { QueryRenderer } from 'react-relay';
-import { graphql } from 'babel-plugin-relay/macro';
 import { useParams } from 'react-router-dom';
 
-import environment from 'environment';
+import useFetchApi from 'hooks/useFetchApi';
 import Loader from 'components/atoms/Loader';
-import TransactionsList from 'components/transactions/TransactionsList';
-
+// import TransactionsList from 'components/transactions/TransactionsList';
+import { Account as AccountType } from '../types';
 import Account from './Account';
-import { AccountPageQuery } from './__generated__/AccountPageQuery.graphql';
-
-const Query = graphql`
-  query AccountPageQuery($accountID: ID!, $transactionAccountId: String) {
-    account(id: $accountID) {
-      ...Account_account
-    }
-    transactions(accountFrom: $transactionAccountId) {
-      ...TransactionsList_transactions
-    }
-  }
-`;
 
 const AccountPage: React.FC = () => {
   const { accountId } = useParams();
+  const {
+    state: { data, fetching, error },
+  } = useFetchApi(`accounts/${accountId}`, false);
+  const account = data as AccountType | null;
+  if (error) {
+    return <div>Щось пішло не так</div>;
+  }
+  if (fetching) {
+    return <Loader />;
+  }
   return (
-    <QueryRenderer<AccountPageQuery>
-      environment={environment}
-      query={Query}
-      render={({ error, props }) => {
-        if (error) {
-          return <div>{error.message}</div>;
-        } else if (props) {
-          return (
-            <>
-              {props.account && <Account account={props.account} />}
-              {props.transactions && (
-                <TransactionsList
-                  transactions={props.transactions}
-                  accountId={props?.account?.__id}
-                />
-              )}
-            </>
-          );
-        }
-        return <Loader />;
-      }}
-      variables={{
-        // ugly workaround because of difference between ID and String types
-        accountID: accountId || '',
-        transactionAccountId: accountId || '',
-      }}
-    />
+    <>
+      {account && <Account account={account} />}
+      {/*<TransactionsList accountId={accountId} />*/}
+    </>
   );
 };
 
