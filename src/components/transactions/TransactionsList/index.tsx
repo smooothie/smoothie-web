@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Modal from 'components/organisms/Modal';
 import AddButton from 'components/atoms/AddButton';
 import Loader from 'components/atoms/Loader';
+import ErrorMessage from 'components/atoms/ErrorMessage';
 import useBooleanState from 'hooks/useBooleanState';
 import useFetchApi from 'hooks/useFetchApi';
 import TransactionsListItem from './TransactionsListItem';
@@ -29,7 +30,7 @@ const TransactionsList: React.FC<Props> = ({ accountId }) => {
     [adder]
   );
   if (error) {
-    return <div>Щось пішло не так</div>;
+    return <ErrorMessage />;
   }
   const transactions = data as Transaction[];
   return (
@@ -51,6 +52,11 @@ const TransactionsList: React.FC<Props> = ({ accountId }) => {
               );
             })}
             {fetching && <Loader />}
+            {!fetching && transactions.length === 0 && (
+              <Box width="100%" marginTop={3}>
+                <Typography align="center">Поки що операцій немає</Typography>
+              </Box>
+            )}
           </Grid>
         </Box>
       </Box>

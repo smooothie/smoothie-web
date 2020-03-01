@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Modal from 'components/organisms/Modal';
 import AddButton from 'components/atoms/AddButton';
 import Loader from 'components/atoms/Loader';
+import ErrorMessage from 'components/atoms/ErrorMessage';
 import useBooleanState from 'hooks/useBooleanState';
 import useFetchApi from 'hooks/useFetchApi';
 import { Account } from '../types';
@@ -31,7 +32,7 @@ const AccountList: React.FC = () => {
     [adder]
   );
   if (error) {
-    return <div>Щось пішло не так</div>;
+    return <ErrorMessage />;
   }
   return (
     <Box marginTop={4}>

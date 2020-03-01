@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 
 import useFetchApi from 'hooks/useFetchApi';
 import Loader from 'components/atoms/Loader';
+import ErrorMessage from 'components/atoms/ErrorMessage';
 import { TransactionsList } from 'components/transactions';
 import { Account } from '../types';
 import { iconsMap } from '../helpers';
@@ -24,7 +25,7 @@ const AccountPage: React.FC = () => {
   } = useFetchApi(`accounts/${accountId}`, false);
   const account = data as Account | null;
   if (error) {
-    return <div>Щось пішло не так</div>;
+    return <ErrorMessage />;
   }
   if (fetching) {
     return <Loader />;
