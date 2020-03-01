@@ -5,26 +5,34 @@ import Grid from '@material-ui/core/Grid';
 
 import Modal from 'components/organisms/Modal';
 import AddButton from 'components/atoms/AddButton';
+import Loader from 'components/atoms/Loader';
 import useBooleanState from 'hooks/useBooleanState';
+import useFetchApi from 'hooks/useFetchApi';
 import { Account } from '../types';
 
 import AccountListItem from './AccountListItem';
 import AccountForm from '../AccountForm';
 
-type Props = {
-  accounts: Account[];
-};
-
-const AccountList: React.FC<Props> = ({ accounts }) => {
+const AccountList: React.FC = () => {
+  const {
+    state: { data, fetching, error },
+    adder,
+  } = useFetchApi('accounts/', true);
+  const accounts = data as Account[];
   const [
     isAccountModalOpen,
     openAccountModal,
     closeAccountModal,
   ] = useBooleanState();
-  // TODO: find out how to use mutation updater instead
-  const forceUpdate = useCallback(() => {
-    window.location.reload();
-  }, []);
+  const addAccount = useCallback(
+    (account: Account) => {
+      adder([account]);
+    },
+    [adder]
+  );
+  if (error) {
+    return <div>Щось пішло не так</div>;
+  }
   return (
     <Box marginTop={4}>
       <Typography component="h1" variant="h5" align="center">
@@ -34,16 +42,12 @@ const AccountList: React.FC<Props> = ({ accounts }) => {
         <Grid container spacing={3}>
           {accounts.map(account => {
             return (
-              <Grid
-                item
-                xs={12}
-                key={account.id}
-                style={{ position: 'relative' }}
-              >
+              <Grid item xs={12} key={account.id}>
                 <AccountListItem account={account} />
               </Grid>
             );
           })}
+          {fetching && <Loader />}
         </Grid>
       </Box>
       <AddButton onClick={openAccountModal} />
@@ -52,7 +56,7 @@ const AccountList: React.FC<Props> = ({ accounts }) => {
         isOpen={isAccountModalOpen}
         onClose={closeAccountModal}
       >
-        <AccountForm onSuccess={forceUpdate} />
+        <AccountForm onSuccess={addAccount} />
       </Modal>
     </Box>
   );

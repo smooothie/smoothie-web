@@ -1,44 +1,71 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 
+import Modal from 'components/organisms/Modal';
+import AddButton from 'components/atoms/AddButton';
+import Loader from 'components/atoms/Loader';
+import useBooleanState from 'hooks/useBooleanState';
+import useFetchApi from 'hooks/useFetchApi';
 import TransactionsListItem from './TransactionsListItem';
-import { TransactionsList_transactions } from './__generated__/TransactionsList_transactions.graphql';
+import TransactionForm from '../TransactionForm';
+import { Transaction } from '../types';
 
 type Props = {
-  transactions: TransactionsList_transactions;
-  accountId?: string;
+  accountId?: number;
 };
 
-const TransactionsList: React.FC<Props> = ({ transactions, accountId }) => {
+const TransactionsList: React.FC<Props> = ({ accountId }) => {
+  const {
+    state: { data, fetching, error },
+    adder,
+  } = useFetchApi('transactions/', true, { account_from: accountId });
+  const [isModalOpen, openModal, closeModal] = useBooleanState();
+  const addTransaction = useCallback(
+    (transaction: Transaction) => {
+      adder([transaction], true);
+    },
+    [adder]
+  );
+  if (error) {
+    return <div>Щось пішло не так</div>;
+  }
+  const transactions = data as Transaction[];
   return (
-    <Box marginTop={4}>
-      <Typography component="h1" variant="h5" align="center">
-        Операції
-      </Typography>
-      <Box marginTop={3}>
-        <Grid container spacing={3}>
-          {transactions.edges.map(edge => {
-            const transaction = edge && edge.node;
-            if (transaction === null) return null;
-            return (
-              <Grid
-                item
-                xs={12}
-                key={transaction.__id}
-                style={{ position: 'relative' }}
-              >
-                <TransactionsListItem
-                  transaction={transaction}
-                  accountId={accountId}
-                />
-              </Grid>
-            );
-          })}
-        </Grid>
+    <>
+      <Box marginTop={4}>
+        <Typography component="h1" variant="h5" align="center">
+          Операції
+        </Typography>
+        <Box marginTop={3}>
+          <Grid container spacing={3}>
+            {transactions.map(transaction => {
+              return (
+                <Grid item xs={12} key={transaction.id}>
+                  <TransactionsListItem
+                    transaction={transaction}
+                    accountId={accountId}
+                  />
+                </Grid>
+              );
+            })}
+            {fetching && <Loader />}
+          </Grid>
+        </Box>
       </Box>
-    </Box>
+      <AddButton onClick={openModal} />
+      <Modal
+        title="Додавання операції"
+        isOpen={isModalOpen}
+        onClose={closeModal}
+      >
+        <TransactionForm
+          onSuccess={addTransaction}
+          currentAccountId={accountId}
+        />
+      </Modal>
+    </>
   );
 };
 

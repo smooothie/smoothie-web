@@ -1,2 +1,2 @@
-export { default as AccountListPage } from './AccountListPage';
+export { default as AccountList } from './AccountList';
 export { default as AccountPage } from './AccountPage';

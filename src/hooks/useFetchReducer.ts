@@ -14,6 +14,7 @@ interface ItemState<T> extends FetchState {
 
 interface ListState<T> extends FetchState {
   data: Array<T>;
+  totalCount?: number;
 }
 
 type State<T> = ItemState<T> | ListState<T>;
@@ -33,6 +34,8 @@ interface ItemFetchSuccessAction<T> extends FetchSuccessAction {
 
 interface ListFetchSuccessAction<T> extends FetchSuccessAction {
   data: Array<T>;
+  totalCount?: number;
+  addToStart?: boolean;
 }
 
 interface FetchErrorAction extends Action {
@@ -72,8 +75,6 @@ const listInitialState: ListState<any> = {
 const getInitialState = <T>(isList: boolean): State<T> =>
   isList ? listInitialState : itemInitialState;
 
-type Reducer<T> = (state: State<T>, action: FetchAction<T>) => State<T>;
-
 const baseReducer = <T>(state: State<T>, action: FetchAction<T>) => {
   switch (action.type) {
     case 'FETCH_ATTEMPT':
@@ -99,10 +100,14 @@ const itemReducer = <T>(state: ItemState<T>, action: ItemFetchAction<T>) => {
 const listReducer = <T>(state: ListState<T>, action: ListFetchAction<T>) => {
   switch (action.type) {
     case 'FETCH_SUCCESS':
+      const newData = action.addToStart
+        ? [...action.data, ...state.data]
+        : [...state.data, ...action.data];
       return {
-        data: [...state.data, ...action.data],
+        data: newData,
         fetching: false,
         error: false,
+        totalCount: action.totalCount,
       };
     case 'RESET':
       return listInitialState;
@@ -120,8 +125,8 @@ const useFetchReducer = <T>(isList: boolean) => {
   const fetchAttempt = useCallback(() => {
     dispatch({ type: 'FETCH_ATTEMPT' });
   }, []);
-  const fetchSuccess = useCallback((data: T) => {
-    dispatch({ type: 'FETCH_SUCCESS', data });
+  const fetchSuccess = useCallback((data: T, addToStart?: boolean) => {
+    dispatch({ type: 'FETCH_SUCCESS', data, addToStart });
   }, []);
   const fetchError = useCallback(() => {
     dispatch({ type: 'FETCH_ERROR' });

@@ -12,6 +12,7 @@ const fetch = async <T>(
 ) => {
   const response: ApiResponse<T, any> = await api.get(url, params);
   if (response.ok && response.data) {
+    // TODO: add handling response headers
     onSuccess(response.data);
   } else {
     onError();
@@ -33,9 +34,13 @@ const useFetchApi = (
   } = useFetchReducer(isList);
   const fetcher = useCallback(
     () => {
-      fetch(url, params, fetchSuccess, fetchError);
+      const apiParams = isList
+        ? { ...params, offset: state.data.length }
+        : params;
+      fetch(url, apiParams, fetchSuccess, fetchError);
     },
     // use paramsString in deps instead of params as immutable value
+    // also, don't include state as it shouldn't trigger re-fetch
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [fetchError, fetchSuccess, url, paramsString]
   );
@@ -46,7 +51,7 @@ const useFetchApi = (
       return reset;
     }
   }, [fetchAttempt, fetcher, isList, reset]);
-  return { state, fetcher };
+  return { state, fetcher, adder: fetchSuccess };
 };
 
 export default useFetchApi;

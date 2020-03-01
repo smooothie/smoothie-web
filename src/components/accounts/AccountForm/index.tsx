@@ -6,11 +6,10 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-
-import createUpdateAccountMutation from '../mutations/CreateUpdateAccountMutation';
+import { Account } from '../types';
 
 type Props = {
-  onSuccess: () => void;
+  onSuccess: (account: Account) => void;
 };
 
 const AccountFormSchema = Yup.object().shape({
@@ -35,17 +34,17 @@ const AccountForm: React.FC<Props> = ({ onSuccess }) => {
             counterpartyName: '',
           }}
           onSubmit={(values, { setSubmitting, setStatus }) => {
-            createUpdateAccountMutation(
-              values,
-              () => {
-                setSubmitting(false);
-                onSuccess();
-              },
-              errorMessage => {
-                setStatus(errorMessage);
-                setSubmitting(false);
-              }
-            );
+            // createUpdateAccountMutation(
+            //   values,
+            //   () => {
+            //     setSubmitting(false);
+            //     onSuccess();
+            //   },
+            //   errorMessage => {
+            //     setStatus(errorMessage);
+            //     setSubmitting(false);
+            //   }
+            // );
           }}
           validationSchema={AccountFormSchema}
         >

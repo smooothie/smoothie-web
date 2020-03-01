@@ -9,11 +9,11 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import moment from 'moment';
 
-import createTransactionMutation from '../mutations/CreateTransactionMutation';
+import { Transaction } from '../types';
 
 type Props = {
-  onSuccess: () => void;
-  currentAccountId: string;
+  onSuccess: (transaction: Transaction) => void;
+  currentAccountId?: number;
 };
 
 const TransactionFormSchema = Yup.object().shape({
@@ -25,8 +25,8 @@ const TransactionFormSchema = Yup.object().shape({
     .required("Обов'язкове поле")
     .min(0.01, 'Число має бути додатним'),
   date: Yup.date().nullable(),
-  accountFromId: Yup.string(),
-  accountToId: Yup.string(),
+  accountFromId: Yup.number().nullable(),
+  accountToId: Yup.number().nullable(),
   category: Yup.string().required("Обов'язкове поле"),
   description: Yup.string(),
   isCompleted: Yup.boolean(),
@@ -42,37 +42,37 @@ const TransactionForm: React.FC<Props> = ({ onSuccess, currentAccountId }) => {
             itemType: 'purchase',
             amount: 0,
             date: moment().format(),
-            accountFromId: '',
-            accountToId: '',
+            accountFromId: null as number | null,
+            accountToId: null as number | null,
             category: '',
             description: '',
             isCompleted: true,
             counterpartyName: '',
           }}
           onSubmit={(values, { setSubmitting, setStatus }) => {
-            let finalValues = values;
-            if (values.itemType === 'income') {
-              finalValues = {
-                ...finalValues,
-                accountToId: currentAccountId,
-              };
-            } else {
-              finalValues = {
-                ...finalValues,
-                accountFromId: currentAccountId,
-              };
-            }
-            createTransactionMutation(
-              finalValues,
-              () => {
-                setSubmitting(false);
-                onSuccess();
-              },
-              errorMessage => {
-                setStatus(errorMessage);
-                setSubmitting(false);
-              }
-            );
+            // let finalValues = values;
+            // if (values.itemType === 'income' && currentAccountId) {
+            //   finalValues = {
+            //     ...finalValues,
+            //     accountToId: currentAccountId,
+            //   };
+            // } else if (currentAccountId) {
+            //   finalValues = {
+            //     ...finalValues,
+            //     accountFromId: currentAccountId,
+            //   };
+            // }
+            // createTransactionMutation(
+            //   finalValues,
+            //   () => {
+            //     setSubmitting(false);
+            //     onSuccess();
+            //   },
+            //   errorMessage => {
+            //     setStatus(errorMessage);
+            //     setSubmitting(false);
+            //   }
+            // );
           }}
           validationSchema={TransactionFormSchema}
         >
@@ -109,17 +109,29 @@ const TransactionForm: React.FC<Props> = ({ onSuccess, currentAccountId }) => {
                 component={DatePicker}
                 format="DD.MM.YYYY"
               />
-              {values.itemType === 'transfer' && (
+              {!currentAccountId && (
                 <Field
                   margin="normal"
                   fullWidth
                   required
-                  id="accountToId"
-                  label="На рахунок"
-                  name="accountToId"
+                  id="accountFromId"
+                  label="З рахунку"
+                  name="accountFromId"
                   component={TextField}
                 />
               )}
+              {!currentAccountId ||
+                (values.itemType === 'transfer' && (
+                  <Field
+                    margin="normal"
+                    fullWidth
+                    required
+                    id="accountToId"
+                    label="На рахунок"
+                    name="accountToId"
+                    component={TextField}
+                  />
+                ))}
               {['income', 'purchase'].includes(values.itemType) && (
                 <Field
                   margin="normal"
