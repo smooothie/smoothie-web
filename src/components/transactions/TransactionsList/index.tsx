@@ -9,15 +9,17 @@ import Loader from 'components/atoms/Loader';
 import ErrorMessage from 'components/atoms/ErrorMessage';
 import useBooleanState from 'hooks/useBooleanState';
 import useFetchApi from 'hooks/useFetchApi';
+import { Account } from 'components/accounts/types';
 import TransactionsListItem from './TransactionsListItem';
 import TransactionForm from '../TransactionForm';
 import { Transaction } from '../types';
 
 type Props = {
   accountId?: number;
+  accountUpdater?: (updatedData: Partial<Account>) => void;
 };
 
-const TransactionsList: React.FC<Props> = ({ accountId }) => {
+const TransactionsList: React.FC<Props> = ({ accountId, accountUpdater }) => {
   const {
     state: { data, fetching, error },
     adder,
@@ -26,9 +28,18 @@ const TransactionsList: React.FC<Props> = ({ accountId }) => {
   const addTransaction = useCallback(
     (transaction: Transaction) => {
       adder([transaction], true);
+      if (accountId && accountUpdater) {
+        const accountToUpdate = [
+          transaction.accountFrom,
+          transaction.accountTo,
+        ].find(acc => acc.id === accountId);
+        if (accountToUpdate) {
+          accountUpdater({ balance: accountToUpdate.balance });
+        }
+      }
       closeModal();
     },
-    [adder, closeModal]
+    [accountId, accountUpdater, adder, closeModal]
   );
   if (error) {
     return <ErrorMessage />;

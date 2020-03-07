@@ -3,6 +3,8 @@ import { Currency } from 'helpers/types';
 type SimpleAccount = {
   id: number;
   name: string;
+  // to be used to update balance
+  balance: number;
 };
 
 export type Transaction = {

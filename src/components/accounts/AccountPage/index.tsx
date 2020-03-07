@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core';
@@ -22,8 +22,15 @@ const AccountPage: React.FC = () => {
   const classes = useStyles();
   const {
     state: { data, fetching, error },
+    adder,
   } = useFetchApi(`accounts/${accountId}`, false);
   const account = data as Account | null;
+  const accountUpdater = useCallback(
+    (updatedData: Partial<Account>) => {
+      adder({ ...account, ...updatedData });
+    },
+    [account, adder]
+  );
   if (error) {
     return <ErrorMessage />;
   }
@@ -55,7 +62,7 @@ const AccountPage: React.FC = () => {
           </Typography>
         </Box>
       </Box>
-      <TransactionsList accountId={id} />
+      <TransactionsList accountId={id} accountUpdater={accountUpdater} />
     </Box>
   );
 };
