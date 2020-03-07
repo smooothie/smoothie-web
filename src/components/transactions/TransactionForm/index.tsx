@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import moment from 'moment';
+import Autocomplete from 'components/organisms/Autocomplete';
 
 import getSubmitHandler from 'helpers/getSubmitHandler';
 import { Transaction } from '../types';
@@ -70,7 +71,7 @@ const TransactionForm: React.FC<Props> = ({ onSuccess, currentAccountId }) => {
         }}
         validationSchema={TransactionFormSchema}
       >
-        {({ isSubmitting, status, values }) => (
+        {({ isSubmitting, status, values, setFieldValue }) => (
           <Form>
             <FormControl margin="normal" fullWidth>
               <InputLabel htmlFor="itemType">Вид операції</InputLabel>
@@ -124,25 +125,34 @@ const TransactionForm: React.FC<Props> = ({ onSuccess, currentAccountId }) => {
                 />
               ))}
             {['income', 'purchase'].includes(values.itemType) && (
-              <Field
-                margin="normal"
-                fullWidth
-                required
-                id="counterpartyName"
-                name="counterpartyName"
-                label="Контрагент"
-                component={TextField}
-              />
+              <FormControl margin="normal" fullWidth>
+                <Autocomplete
+                  fetchEndpoint="counterparties/autocomplete/"
+                  label="Контрагент"
+                  onChange={value => {
+                    setFieldValue('counterpartyName', value ? value.name : '');
+                  }}
+                  onInputChange={input => {
+                    setFieldValue('counterpartyName', input);
+                  }}
+                  getOptionLabel={option => option.name}
+                />
+              </FormControl>
             )}
-            <Field
-              margin="normal"
-              fullWidth
-              required
-              id="categoryName"
-              name="categoryName"
-              label="Категорія"
-              component={TextField}
-            />
+            <FormControl margin="normal" fullWidth>
+              <Autocomplete
+                fetchEndpoint="categories/autocomplete/"
+                label="Категорія"
+                onChange={value => {
+                  setFieldValue('categoryName', value ? value.name : '');
+                }}
+                onInputChange={input => {
+                  setFieldValue('categoryName', input);
+                }}
+                getOptionLabel={option => option.name}
+                required
+              />
+            </FormControl>
             <Field
               margin="normal"
               fullWidth
