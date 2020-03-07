@@ -1,7 +1,7 @@
 import { create } from 'apisauce';
 import Cookies from 'js-cookie';
 import { mapObjIndexed } from 'ramda';
-import { FormikValues } from 'formik';
+import { FormikValues, FormikErrors } from 'formik';
 import { omit } from 'lodash';
 
 import { AUTH_TOKEN_COOKIE } from 'helpers/constants';
@@ -16,7 +16,7 @@ export type ApiErrors<V> = {
 export const parseApiErrors = <V extends FormikValues>(
   apiErrors: ApiErrors<V>
 ): {
-  errors: Record<string, string>;
+  errors: FormikErrors<V>;
   nonFieldError?: string;
 } => {
   const detail = apiErrors.detail;
@@ -27,7 +27,7 @@ export const parseApiErrors = <V extends FormikValues>(
     apiErrors
   );
   return {
-    errors: omit(errors, ['nonFieldErrors']),
+    errors: omit(errors, ['nonFieldErrors']) as FormikErrors<V>,
     nonFieldError: detail || errors.nonFieldErrors,
   };
 };

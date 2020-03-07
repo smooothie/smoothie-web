@@ -28,8 +28,9 @@ const AccountList: React.FC = () => {
   const addAccount = useCallback(
     (account: Account) => {
       adder([account]);
+      closeAccountModal();
     },
-    [adder]
+    [adder, closeAccountModal]
   );
   if (error) {
     return <ErrorMessage />;

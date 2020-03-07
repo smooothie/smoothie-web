@@ -26,8 +26,9 @@ const TransactionsList: React.FC<Props> = ({ accountId }) => {
   const addTransaction = useCallback(
     (transaction: Transaction) => {
       adder([transaction], true);
+      closeModal();
     },
-    [adder]
+    [adder, closeModal]
   );
   if (error) {
     return <ErrorMessage />;
