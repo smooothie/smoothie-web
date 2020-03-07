@@ -22,7 +22,7 @@ const fetch = async <T>(
 const useFetchApi = (
   url: string,
   isList: boolean,
-  params: Record<string, any> = {}
+  params: Record<string, string | number | undefined> = {}
 ) => {
   const paramsString = JSON.stringify(params);
   const {

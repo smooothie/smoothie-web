@@ -10,14 +10,20 @@ import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import moment from 'moment';
-import Autocomplete from 'components/organisms/Autocomplete';
 
+import Autocomplete from 'components/organisms/Autocomplete';
+import useFetchApi from 'hooks/useFetchApi';
 import getSubmitHandler from 'helpers/getSubmitHandler';
 import { Transaction } from '../types';
 
 type Props = {
   onSuccess: (transaction: Transaction) => void;
   currentAccountId?: number;
+};
+
+type AccountOption = {
+  id: number;
+  name: string;
 };
 
 const TransactionFormSchema = Yup.object().shape({
@@ -40,6 +46,10 @@ const TransactionFormSchema = Yup.object().shape({
 const handleSubmit = getSubmitHandler('transactions/');
 
 const TransactionForm: React.FC<Props> = ({ onSuccess, currentAccountId }) => {
+  const {
+    state: { data },
+  } = useFetchApi('accounts/options', true, { exclude_id: currentAccountId });
+  const accountOptions = data as AccountOption[];
   return (
     <Box>
       <Formik
@@ -102,27 +112,39 @@ const TransactionForm: React.FC<Props> = ({ onSuccess, currentAccountId }) => {
               format="DD.MM.YYYY"
             />
             {!currentAccountId && (
-              <Field
-                margin="normal"
-                fullWidth
-                required
-                id="accountFromId"
-                name="accountFromId"
-                label="З рахунку"
-                component={TextField}
-              />
+              <FormControl margin="normal" fullWidth>
+                <InputLabel htmlFor="accountFromId">З рахунку</InputLabel>
+                <Field
+                  fullWidth
+                  id="accountFromId"
+                  name="accountFromId"
+                  component={Select}
+                >
+                  {accountOptions.map(({ id, name }) => (
+                    <MenuItem key={id} value={id}>
+                      {name}
+                    </MenuItem>
+                  ))}
+                </Field>
+              </FormControl>
             )}
             {!currentAccountId ||
               (values.itemType === 'transfer' && (
-                <Field
-                  margin="normal"
-                  fullWidth
-                  required
-                  id="accountToId"
-                  name="accountToId"
-                  label="На рахунок"
-                  component={TextField}
-                />
+                <FormControl margin="normal" fullWidth>
+                  <InputLabel htmlFor="accountToId">На рахунок</InputLabel>
+                  <Field
+                    fullWidth
+                    id="accountToId"
+                    name="accountToId"
+                    component={Select}
+                  >
+                    {accountOptions.map(({ id, name }) => (
+                      <MenuItem key={id} value={id}>
+                        {name}
+                      </MenuItem>
+                    ))}
+                  </Field>
+                </FormControl>
               ))}
             {['income', 'purchase'].includes(values.itemType) && (
               <FormControl margin="normal" fullWidth>
