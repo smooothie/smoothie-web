@@ -40,7 +40,7 @@ const Autocomplete: React.FC<Props> = ({
           limit: search ? undefined : 10,
         }
       );
-      if (response.ok && response.data) {
+      if (response.ok && Array.isArray(response.data)) {
         setOptions(response.data);
       }
     },

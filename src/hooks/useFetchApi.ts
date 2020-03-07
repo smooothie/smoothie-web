@@ -11,7 +11,7 @@ const fetch = async <T>(
   onError: () => void
 ) => {
   const response: ApiResponse<T, any> = await api.get(url, params);
-  if (response.ok && response.data) {
+  if (response.ok && typeof response.data === 'object') {
     // TODO: add handling response headers
     onSuccess(response.data);
   } else {

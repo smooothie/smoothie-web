@@ -16,9 +16,9 @@ const getSubmitHandler = (
       method
     ](url, values);
     setSubmitting(false);
-    if (response.ok && response.data) {
+    if (response.ok && typeof response.data === 'object') {
       onSuccess(response.data);
-    } else if (!response.ok && response.data) {
+    } else if (!response.ok && typeof response.data === 'object') {
       const { errors, nonFieldError } = parseApiErrors(response.data);
       setErrors(errors);
       if (nonFieldError) {
