@@ -21,7 +21,7 @@ const TransactionsList: React.FC<Props> = ({ accountId }) => {
   const {
     state: { data, fetching, error },
     adder,
-  } = useFetchApi('transactions/', true, { account_from: accountId });
+  } = useFetchApi('transactions/', true, { account: accountId });
   const [isModalOpen, openModal, closeModal] = useBooleanState();
   const addTransaction = useCallback(
     (transaction: Transaction) => {
