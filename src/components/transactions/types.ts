@@ -3,9 +3,12 @@ import { Currency } from 'helpers/types';
 type SimpleAccount = {
   id: number;
   name: string;
-  // to be used to update balance
   balance: number;
 };
+
+export const transactionTypes = ['purchase', 'income', 'transfer'] as const;
+
+export type TransactionType = typeof transactionTypes[number];
 
 export type Transaction = {
   id: number;
@@ -19,5 +22,5 @@ export type Transaction = {
     name: string;
   };
   isCompleted: boolean;
-  itemType: 'purchase' | 'income' | 'transfer';
+  itemType: TransactionType;
 };

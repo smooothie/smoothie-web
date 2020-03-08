@@ -2,4 +2,6 @@ export interface Action {
   type: string;
 }
 
-export type Currency = 'UAH' | 'USD' | 'EUR';
+export const currencies = ['UAH', 'USD', 'EUR'] as const;
+
+export type Currency = typeof currencies[number];

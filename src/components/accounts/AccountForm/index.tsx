@@ -10,21 +10,22 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 
 import getSubmitHandler from 'helpers/getSubmitHandler';
-import { Account } from '../types';
+import { Currency, currencies } from 'helpers/types';
+import { Account, AccountType, accountTypes, bankAccountTypes } from '../types';
 
 type Props = {
   onSuccess: (account: Account) => void;
 };
 
 const AccountFormSchema = Yup.object().shape({
-  itemType: Yup.mixed<'cashaccount' | 'counterpartyaccount'>().oneOf(
-    ['cashaccount', 'counterpartyaccount'],
+  itemType: Yup.mixed<AccountType>().oneOf(
+    [...accountTypes],
     'Недопустимий вибір'
   ),
   name: Yup.string().required("Обов'язкове поле"),
   balance: Yup.number().min(0, 'Число має бути додатним'),
-  balanceCurrency: Yup.mixed<'UAH' | 'USD' | 'EUR'>().oneOf(
-    ['UAH', 'USD', 'EUR'],
+  balanceCurrency: Yup.mixed<Currency>().oneOf(
+    [...currencies],
     'Недопустимий вибір'
   ),
   counterpartyName: Yup.string(),
@@ -54,6 +55,8 @@ const AccountForm: React.FC<Props> = ({ onSuccess }) => {
               <InputLabel htmlFor="itemType">Вид рахунку</InputLabel>
               <Field required id="itemType" name="itemType" component={Select}>
                 <MenuItem value="cashaccount">Готівка</MenuItem>
+                <MenuItem value="debitbankaccount">Дебетова картка</MenuItem>
+                <MenuItem value="creditbankaccount">Кредитна картка</MenuItem>
                 <MenuItem value="counterpartyaccount">Контрагент</MenuItem>
               </Field>
             </FormControl>
@@ -77,6 +80,16 @@ const AccountForm: React.FC<Props> = ({ onSuccess }) => {
                 component={TextField}
               />
             )}
+            {bankAccountTypes.includes(values.itemType) && (
+              <Field
+                margin="normal"
+                fullWidth
+                id="bankName"
+                name="bankName"
+                label="Назва банку"
+                component={TextField}
+              />
+            )}
             <Field
               margin="normal"
               placeholder="0"
@@ -96,9 +109,9 @@ const AccountForm: React.FC<Props> = ({ onSuccess }) => {
                 name="balanceCurrency"
                 component={Select}
               >
-                <MenuItem value="UAH">UAH</MenuItem>
-                <MenuItem value="USD">USD</MenuItem>
-                <MenuItem value="EUR">EUR</MenuItem>
+                {currencies.map(currency => (
+                  <MenuItem value={currency}>{currency}</MenuItem>
+                ))}
               </Field>
             </FormControl>
             {status !== null && <Typography color="error">{status}</Typography>}

@@ -14,7 +14,7 @@ import moment from 'moment';
 import Autocomplete from 'components/organisms/Autocomplete';
 import useFetchApi from 'hooks/useFetchApi';
 import getSubmitHandler from 'helpers/getSubmitHandler';
-import { Transaction } from '../types';
+import { Transaction, TransactionType, transactionTypes } from '../types';
 
 type Props = {
   onSuccess: (transaction: Transaction) => void;
@@ -27,8 +27,8 @@ type AccountOption = {
 };
 
 const TransactionFormSchema = Yup.object().shape({
-  itemType: Yup.mixed<'income' | 'purchase' | 'transfer'>().oneOf(
-    ['income', 'purchase', 'transfer'],
+  itemType: Yup.mixed<TransactionType>().oneOf(
+    [...transactionTypes],
     'Недопустимий вибір'
   ),
   amount: Yup.number()
