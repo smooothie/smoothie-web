@@ -1,6 +1,4 @@
 import React from 'react';
-import { createFragmentContainer } from 'react-relay';
-import { graphql } from 'babel-plugin-relay/macro';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -8,9 +6,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import Link from 'components/atoms/Link';
 import urls from 'helpers/urls';
-
+import { Account } from '../types';
 import { iconsMap } from '../helpers';
-import { AccountListItem_account } from './__generated__/AccountListItem_account.graphql';
 
 const useStyles = makeStyles(theme => ({
   icon: {
@@ -19,17 +16,17 @@ const useStyles = makeStyles(theme => ({
 }));
 
 type Props = {
-  account: AccountListItem_account;
+  account: Account;
 };
 
-const PureAccountListItem: React.FC<Props> = ({
+const AccountListItem: React.FC<Props> = ({
   account: { id, name, itemType, balance, balanceCurrency },
 }) => {
   const classes = useStyles();
   const Icon = iconsMap[itemType] || iconsMap.default;
   return (
     <Paper elevation={3}>
-      <Link to={urls.account.replace(':accountId', id)}>
+      <Link to={urls.account.replace(':accountId', id.toString())}>
         <Box padding={1}>
           <Box display="flex" alignItems="center">
             <Icon className={classes.icon} />
@@ -48,19 +45,5 @@ const PureAccountListItem: React.FC<Props> = ({
     </Paper>
   );
 };
-
-const AccountListItem = createFragmentContainer(PureAccountListItem, {
-  account: graphql`
-    fragment AccountListItem_account on AccountNode {
-      id
-      name
-      itemType
-      balance
-      balanceCurrency
-    }
-  `,
-});
-
-AccountListItem.displayName = 'AccountListItem';
 
 export default AccountListItem;

@@ -6,13 +6,14 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { Formik, Form, Field } from 'formik';
 import { TextField } from 'formik-material-ui';
-import Cookies from 'js-cookie';
 import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
+import Cookies from 'js-cookie';
 
-import { AUTH_TOKEN_COOKIE } from 'helpers/constants';
 import urls from 'helpers/urls';
-import tokenMutation from './mutations/TokenMutation';
+import getSubmitHandler from 'helpers/getSubmitHandler';
+import { AUTH_TOKEN_COOKIE } from 'helpers/constants';
+import { ResponseData } from './types';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -41,14 +42,16 @@ const SignInSchema = Yup.object().shape({
   password: Yup.string().required("Обов'язкове поле"),
 });
 
+const handleSubmit = getSubmitHandler('token/');
+
 const SignIn: React.FC = () => {
   const classes = useStyles();
 
   const history = useHistory();
 
-  const login = useCallback(
-    token => {
-      Cookies.set(AUTH_TOKEN_COOKIE, token);
+  const onSuccess = useCallback(
+    (responseData: ResponseData) => {
+      Cookies.set(AUTH_TOKEN_COOKIE, responseData.access);
       history.replace(urls.home);
     },
     [history]
@@ -64,18 +67,15 @@ const SignIn: React.FC = () => {
       </Typography>
       <Formik
         initialValues={{ email: '', password: '' }}
-        onSubmit={(values, { setSubmitting, setStatus }) => {
-          tokenMutation(values, login, errorMessage => {
-            setStatus(errorMessage);
-            setSubmitting(false);
-          });
+        onSubmit={(values, helpers) => {
+          Cookies.remove(AUTH_TOKEN_COOKIE);
+          handleSubmit(values, helpers, onSuccess);
         }}
         validationSchema={SignInSchema}
       >
         {({ isSubmitting, status }) => (
           <Form className={classes.form}>
             <Field
-              variant="outlined"
               margin="normal"
               required
               fullWidth
@@ -87,7 +87,6 @@ const SignIn: React.FC = () => {
               component={TextField}
             />
             <Field
-              variant="outlined"
               margin="normal"
               required
               fullWidth

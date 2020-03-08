@@ -1,20 +1,17 @@
 import React from 'react';
-import { createFragmentContainer } from 'react-relay';
-import { graphql } from 'babel-plugin-relay/macro';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import DoneIcon from '@material-ui/icons/Done';
 import ScheduleIcon from '@material-ui/icons/Schedule';
-
-import { TransactionsListItem_transaction } from './__generated__/TransactionsListItem_transaction.graphql';
+import { Transaction } from '../types';
 
 type Props = {
-  transaction: TransactionsListItem_transaction;
-  accountId?: string;
+  transaction: Transaction;
+  accountId?: number;
 };
 
-const PureTransactionsListItem: React.FC<Props> = ({
+const TransactionsListItem: React.FC<Props> = ({
   transaction: {
     isCompleted,
     category,
@@ -59,31 +56,5 @@ const PureTransactionsListItem: React.FC<Props> = ({
     </Paper>
   );
 };
-
-const TransactionsListItem = createFragmentContainer(PureTransactionsListItem, {
-  transaction: graphql`
-    fragment TransactionsListItem_transaction on TransactionNode {
-      id
-      date
-      amount
-      amountCurrency
-      description
-      accountFrom {
-        id
-        name
-      }
-      accountTo {
-        id
-        name
-      }
-      category {
-        name
-      }
-      isCompleted
-    }
-  `,
-});
-
-TransactionsListItem.displayName = 'TransactionsListItem';
 
 export default TransactionsListItem;
