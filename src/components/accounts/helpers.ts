@@ -13,7 +13,6 @@ export const iconsMap: Record<
 > = {
   cashaccount: AccountBalanceWalletRoundedIcon,
   counterpartyaccount: PersonRoundedIcon,
-  debitbankaccount: CreditCardRoundedIcon,
-  creditbankaccount: CreditCardRoundedIcon,
+  bankaccount: CreditCardRoundedIcon,
   default: MonetizationOnRoundedIcon,
 };

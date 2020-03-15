@@ -41,7 +41,7 @@ const AccountPage: React.FC = () => {
     return null;
   }
 
-  const { id, itemType, name, balance, balanceCurrency } = account;
+  const { id, itemType, name, balance, balanceCurrency, creditLimit } = account;
   const Icon = iconsMap[itemType] || iconsMap.default;
   return (
     <Box marginTop={4}>
@@ -61,6 +61,17 @@ const AccountPage: React.FC = () => {
             })}
           </Typography>
         </Box>
+        {creditLimit > 0 && (
+          <Box display="flex" justifyContent="space-between">
+            <Typography>Кредитний ліміт</Typography>
+            <Typography>
+              {creditLimit.toLocaleString('uk-UA', {
+                style: 'currency',
+                currency: balanceCurrency,
+              })}
+            </Typography>
+          </Box>
+        )}
       </Box>
       <TransactionsList accountId={id} accountUpdater={accountUpdater} />
     </Box>

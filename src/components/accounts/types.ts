@@ -1,11 +1,9 @@
 import { Currency } from 'helpers/types';
 
-export const bankAccountTypes = ['debitbankaccount', 'creditbankaccount'];
-
 export const accountTypes = [
   'cashaccount',
+  'bankaccount',
   'counterpartyaccount',
-  ...bankAccountTypes,
 ] as const;
 
 export type AccountType = typeof accountTypes[number];
@@ -16,4 +14,5 @@ export type Account = {
   name: string;
   balance: number;
   balanceCurrency: Currency;
+  creditLimit: number;
 };

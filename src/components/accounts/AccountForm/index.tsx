@@ -11,7 +11,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 
 import getSubmitHandler from 'helpers/getSubmitHandler';
 import { Currency, currencies } from 'helpers/types';
-import { Account, AccountType, accountTypes, bankAccountTypes } from '../types';
+import { Account, AccountType, accountTypes } from '../types';
 
 type Props = {
   onSuccess: (account: Account) => void;
@@ -28,6 +28,7 @@ const AccountFormSchema = Yup.object().shape({
     [...currencies],
     'Недопустимий вибір'
   ),
+  creditLimit: Yup.number().min(0, 'Число має бути додатним'),
   counterpartyName: Yup.string(),
 });
 
@@ -43,6 +44,7 @@ const AccountForm: React.FC<Props> = ({ onSuccess }) => {
           balance: 0,
           counterpartyName: '',
           balanceCurrency: 'UAH',
+          creditLimit: 0,
         }}
         onSubmit={(values, helpers) => {
           handleSubmit(values, helpers, onSuccess);
@@ -55,8 +57,7 @@ const AccountForm: React.FC<Props> = ({ onSuccess }) => {
               <InputLabel htmlFor="itemType">Вид рахунку</InputLabel>
               <Field required id="itemType" name="itemType" component={Select}>
                 <MenuItem value="cashaccount">Готівка</MenuItem>
-                <MenuItem value="debitbankaccount">Дебетова картка</MenuItem>
-                <MenuItem value="creditbankaccount">Кредитна картка</MenuItem>
+                <MenuItem value="bankaccount">Банківська картка</MenuItem>
                 <MenuItem value="counterpartyaccount">Контрагент</MenuItem>
               </Field>
             </FormControl>
@@ -80,7 +81,7 @@ const AccountForm: React.FC<Props> = ({ onSuccess }) => {
                 component={TextField}
               />
             )}
-            {bankAccountTypes.includes(values.itemType) && (
+            {values.itemType === 'bankaccount' && (
               <Field
                 margin="normal"
                 fullWidth
@@ -114,6 +115,17 @@ const AccountForm: React.FC<Props> = ({ onSuccess }) => {
                 ))}
               </Field>
             </FormControl>
+            {values.itemType === 'bankaccount' && (
+              <Field
+                margin="normal"
+                fullWidth
+                id="creditLimit"
+                name="creditLimit"
+                label="Кредитний ліміт"
+                placeholder={0}
+                component={TextField}
+              />
+            )}
             {status !== null && <Typography color="error">{status}</Typography>}
             <Box paddingBottom={2} paddingTop={4}>
               <Button
