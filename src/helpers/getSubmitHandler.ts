@@ -7,8 +7,8 @@ const getSubmitHandler = (
   url: string,
   method: 'post' | 'put' | 'patch' = 'post'
 ) => {
-  async function handleSubmit<Values, ResponseData>(
-    values: Values,
+  async function handleSubmit<Values, ResponseData, RequestData = Values>(
+    values: RequestData,
     { setSubmitting, setStatus, setErrors }: FormikHelpers<Values>,
     onSuccess: (data: ResponseData) => void
   ) {

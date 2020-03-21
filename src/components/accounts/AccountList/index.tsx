@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -12,12 +12,12 @@ import useFetchApi from 'hooks/useFetchApi';
 import { Account } from '../types';
 
 import AccountListItem from './AccountListItem';
-import AccountForm from '../AccountForm';
+import AccountAddWizard from '../AccountAddWizard';
 
 const AccountList: React.FC = () => {
   const {
     state: { data, fetching, error },
-    adder,
+    adder: addAccounts,
   } = useFetchApi('accounts/', true);
   const accounts = data as Account[];
   const [
@@ -25,13 +25,6 @@ const AccountList: React.FC = () => {
     openAccountModal,
     closeAccountModal,
   ] = useBooleanState();
-  const addAccount = useCallback(
-    (account: Account) => {
-      adder([account]);
-      closeAccountModal();
-    },
-    [adder, closeAccountModal]
-  );
   if (error) {
     return <ErrorMessage />;
   }
@@ -58,7 +51,10 @@ const AccountList: React.FC = () => {
         isOpen={isAccountModalOpen}
         onClose={closeAccountModal}
       >
-        <AccountForm onSuccess={addAccount} />
+        <AccountAddWizard
+          addAccounts={addAccounts}
+          onSuccess={closeAccountModal}
+        />
       </Modal>
     </Box>
   );

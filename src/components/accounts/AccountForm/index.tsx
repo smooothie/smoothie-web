@@ -15,6 +15,7 @@ import { Account, AccountType, accountTypes } from '../types';
 
 type Props = {
   onSuccess: (account: Account) => void;
+  goBack?: () => void;
 };
 
 const AccountFormSchema = Yup.object().shape({
@@ -34,7 +35,7 @@ const AccountFormSchema = Yup.object().shape({
 
 const handleSubmit = getSubmitHandler('accounts/');
 
-const AccountForm: React.FC<Props> = ({ onSuccess }) => {
+const AccountForm: React.FC<Props> = ({ onSuccess, goBack }) => {
   return (
     <Box>
       <Formik
@@ -138,6 +139,18 @@ const AccountForm: React.FC<Props> = ({ onSuccess }) => {
                 Готово
               </Button>
             </Box>
+            {goBack && (
+              <Box paddingBottom={2}>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  color="default"
+                  onClick={() => goBack()}
+                >
+                  Назад
+                </Button>
+              </Box>
+            )}
           </Form>
         )}
       </Formik>
