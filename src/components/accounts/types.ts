@@ -15,4 +15,5 @@ export type Account = {
   balance: number;
   balanceCurrency: Currency;
   creditLimit: number;
+  apiAccountId: string | null;
 };

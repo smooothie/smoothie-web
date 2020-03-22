@@ -10,36 +10,40 @@ import ErrorMessage from 'components/atoms/ErrorMessage';
 import useBooleanState from 'hooks/useBooleanState';
 import useFetchApi from 'hooks/useFetchApi';
 import { Account } from 'components/accounts/types';
+import TransactionAddWizard from '../TransactionAddWizard';
 import TransactionsListItem from './TransactionsListItem';
-import TransactionForm from '../TransactionForm';
 import { Transaction } from '../types';
 
 type Props = {
   accountId?: number;
+  apiAccountId?: string | null;
   accountUpdater?: (updatedData: Partial<Account>) => void;
 };
 
-const TransactionsList: React.FC<Props> = ({ accountId, accountUpdater }) => {
+const TransactionsList: React.FC<Props> = ({
+  accountId,
+  apiAccountId,
+  accountUpdater,
+}) => {
   const {
     state: { data, fetching, error },
     adder,
   } = useFetchApi('transactions/', true, { account: accountId });
   const [isModalOpen, openModal, closeModal] = useBooleanState();
-  const addTransaction = useCallback(
-    (transaction: Transaction) => {
-      adder([transaction], true);
-      if (accountId && accountUpdater) {
+  const addTransactions = useCallback(
+    (transactions: Transaction[]) => {
+      adder(transactions, true);
+      if (accountId && accountUpdater && transactions.length === 1) {
         const accountToUpdate = [
-          transaction.accountFrom,
-          transaction.accountTo,
+          transactions[0].accountFrom,
+          transactions[0].accountTo,
         ].find(acc => acc.id === accountId);
         if (accountToUpdate) {
           accountUpdater({ balance: accountToUpdate.balance });
         }
       }
-      closeModal();
     },
-    [accountId, accountUpdater, adder, closeModal]
+    [accountId, accountUpdater, adder]
   );
   if (error) {
     return <ErrorMessage />;
@@ -78,8 +82,10 @@ const TransactionsList: React.FC<Props> = ({ accountId, accountUpdater }) => {
         isOpen={isModalOpen}
         onClose={closeModal}
       >
-        <TransactionForm
-          onSuccess={addTransaction}
+        <TransactionAddWizard
+          addTransactions={addTransactions}
+          onSuccess={closeModal}
+          apiAccountId={apiAccountId}
           currentAccountId={accountId}
         />
       </Modal>

@@ -19,6 +19,7 @@ import { Transaction, TransactionType, transactionTypes } from '../types';
 type Props = {
   onSuccess: (transaction: Transaction) => void;
   currentAccountId?: number;
+  goBack?: () => void;
 };
 
 type AccountOption = {
@@ -45,7 +46,11 @@ const TransactionFormSchema = Yup.object().shape({
 
 const handleSubmit = getSubmitHandler('transactions/');
 
-const TransactionForm: React.FC<Props> = ({ onSuccess, currentAccountId }) => {
+const TransactionForm: React.FC<Props> = ({
+  onSuccess,
+  currentAccountId,
+  goBack,
+}) => {
   const {
     state: { data },
   } = useFetchApi('accounts/options', true, { exclude_id: currentAccountId });
@@ -203,6 +208,18 @@ const TransactionForm: React.FC<Props> = ({ onSuccess, currentAccountId }) => {
                 Готово
               </Button>
             </Box>
+            {goBack && (
+              <Box paddingBottom={2}>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  color="default"
+                  onClick={() => goBack()}
+                >
+                  Назад
+                </Button>
+              </Box>
+            )}
           </Form>
         )}
       </Formik>

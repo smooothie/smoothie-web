@@ -41,7 +41,15 @@ const AccountPage: React.FC = () => {
     return null;
   }
 
-  const { id, itemType, name, balance, balanceCurrency, creditLimit } = account;
+  const {
+    id,
+    itemType,
+    name,
+    balance,
+    balanceCurrency,
+    creditLimit,
+    apiAccountId,
+  } = account;
   const Icon = iconsMap[itemType] || iconsMap.default;
   return (
     <Box marginTop={4}>
@@ -73,7 +81,11 @@ const AccountPage: React.FC = () => {
           </Box>
         )}
       </Box>
-      <TransactionsList accountId={id} accountUpdater={accountUpdater} />
+      <TransactionsList
+        accountId={id}
+        accountUpdater={accountUpdater}
+        apiAccountId={apiAccountId}
+      />
     </Box>
   );
 };
