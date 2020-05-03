@@ -7,6 +7,7 @@ import MomentUtils from '@date-io/moment';
 import { Layout } from 'components/layout';
 import { SignIn } from 'components/authentication';
 import { AccountList, AccountPage } from 'components/accounts';
+import Stats from 'components/stats';
 import urls from 'helpers/urls';
 import theme from 'helpers/theme';
 
@@ -19,6 +20,9 @@ const App: React.FC = () => {
             <Switch>
               <Route path={urls.login}>
                 <SignIn />
+              </Route>
+              <Route path={urls.stats}>
+                <Stats />
               </Route>
               <Route path={urls.account}>
                 <AccountPage />

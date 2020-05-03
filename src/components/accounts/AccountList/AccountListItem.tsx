@@ -5,7 +5,7 @@ import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Link from 'components/atoms/Link';
-import urls from 'helpers/urls';
+import { getAccountPageUrl } from 'helpers/urls';
 import { Account } from '../types';
 import { iconsMap } from '../helpers';
 
@@ -26,7 +26,7 @@ const AccountListItem: React.FC<Props> = ({
   const Icon = iconsMap[itemType] || iconsMap.default;
   return (
     <Paper elevation={3}>
-      <Link to={urls.account.replace(':accountId', id.toString())}>
+      <Link to={getAccountPageUrl(id)}>
         <Box padding={1}>
           <Box display="flex" alignItems="center">
             <Icon className={classes.icon} />
