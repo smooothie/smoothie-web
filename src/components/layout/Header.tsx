@@ -4,21 +4,20 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
-import MenuIcon from '@material-ui/icons/Menu';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { makeStyles } from '@material-ui/core/styles';
 import Cookies from 'js-cookie';
 import { useHistory, Link as RouterLink } from 'react-router-dom';
 
 import { AUTH_TOKEN_COOKIE } from 'helpers/constants';
-import urls from 'helpers/urls';
+import urls, { getStatsTabUrl } from 'helpers/urls';
 
 const useStyles = makeStyles(theme => ({
-  menuButton: {
+  menuItem: {
     marginRight: theme.spacing(2),
   },
-  title: {
-    flexGrow: 1,
+  menuItemRight: {
+    marginLeft: 'auto',
   },
 }));
 
@@ -37,30 +36,43 @@ const Header: React.FC = () => {
   return (
     <AppBar position="static">
       <Toolbar>
-        <IconButton
-          edge="start"
-          className={classes.menuButton}
-          color="inherit"
-          aria-label="menu"
-        >
-          <MenuIcon />
-        </IconButton>
         <Link
           color="inherit"
           variant="h6"
           underline="none"
-          className={classes.title}
+          className={classes.menuItem}
           component={RouterLink}
           to={urls.home}
         >
-          Smooothie
+          Головна
+        </Link>
+        <Link
+          color="inherit"
+          variant="h6"
+          underline="none"
+          className={classes.menuItem}
+          component={RouterLink}
+          to={getStatsTabUrl('')}
+        >
+          Статистика
         </Link>
         {isLoggedIn ? (
-          <IconButton color="inherit" aria-label="logout" onClick={logout}>
+          <IconButton
+            color="inherit"
+            aria-label="logout"
+            className={classes.menuItemRight}
+            onClick={logout}
+          >
             <ExitToAppIcon />
           </IconButton>
         ) : (
-          <Button color="inherit" component={RouterLink} to={urls.login}>
+          <Button
+            color="inherit"
+            aria-label="login"
+            className={classes.menuItemRight}
+            component={RouterLink}
+            to={urls.login}
+          >
             Увійти
           </Button>
         )}
