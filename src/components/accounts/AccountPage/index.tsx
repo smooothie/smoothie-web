@@ -4,7 +4,7 @@ import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core';
 import { useParams } from 'react-router-dom';
 
-import useFetchApi from 'hooks/useFetchApi';
+import useFetchApi from 'helpers/hooks/useFetchApi';
 import Loader from 'components/atoms/Loader';
 import ErrorMessage from 'components/atoms/ErrorMessage';
 import { TransactionsList } from 'components/transactions';

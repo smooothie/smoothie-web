@@ -1,6 +1,6 @@
 import React from 'react';
 
-import useFetchApi from 'hooks/useFetchApi';
+import useFetchApi from 'helpers/hooks/useFetchApi';
 
 import StructureChart from './StructureChart';
 

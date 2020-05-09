@@ -12,7 +12,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import moment from 'moment';
 
 import Autocomplete from 'components/organisms/Autocomplete';
-import useFetchApi from 'hooks/useFetchApi';
+import useFetchApi from 'helpers/hooks/useFetchApi';
 import getSubmitHandler from 'helpers/getSubmitHandler';
 import { Transaction, TransactionType, transactionTypes } from '../types';
 
