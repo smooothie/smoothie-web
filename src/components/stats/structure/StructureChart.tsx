@@ -47,6 +47,7 @@ const StructureChart: React.FC<Props> = ({ data }) => {
           colorScale="qualitative"
           height={450}
           theme={VictoryTheme.material}
+          style={{ labels: { fontSize: 15 }, title: { fontSize: 18 } }}
         />
       </div>
     </div>

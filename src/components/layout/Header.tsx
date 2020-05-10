@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { makeStyles } from '@material-ui/core/styles';
@@ -33,6 +32,8 @@ const Header: React.FC = () => {
 
   const isLoggedIn = Cookies.get(AUTH_TOKEN_COOKIE);
 
+  if (!isLoggedIn) return null;
+
   return (
     <AppBar position="static">
       <Toolbar>
@@ -56,26 +57,14 @@ const Header: React.FC = () => {
         >
           Статистика
         </Link>
-        {isLoggedIn ? (
-          <IconButton
-            color="inherit"
-            aria-label="logout"
-            className={classes.menuItemRight}
-            onClick={logout}
-          >
-            <ExitToAppIcon />
-          </IconButton>
-        ) : (
-          <Button
-            color="inherit"
-            aria-label="login"
-            className={classes.menuItemRight}
-            component={RouterLink}
-            to={urls.login}
-          >
-            Увійти
-          </Button>
-        )}
+        <IconButton
+          color="inherit"
+          aria-label="logout"
+          className={classes.menuItemRight}
+          onClick={logout}
+        >
+          <ExitToAppIcon />
+        </IconButton>
       </Toolbar>
     </AppBar>
   );
