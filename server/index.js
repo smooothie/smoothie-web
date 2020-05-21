@@ -8,7 +8,7 @@ const buildDir = resolve(__dirname, '../build');
 
 app.use(express.static(buildDir));
 
-app.get('/', function(req, res) {
+app.get('*', function(req, res) {
   res.sendFile(join(buildDir, 'index.html'));
 });
 
